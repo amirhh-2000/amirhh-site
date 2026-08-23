@@ -126,7 +126,22 @@ E:\Photography Originals\
 
 ## Git
 
-گردش‌کار روزانه پس از اتصال مخزن شخصی:
+### Obsidian Git (بدون پیام دستی)
+
+افزونهٔ Community با نام **Obsidian Git** را نصب و فعال کن. چون Vault داخل پوشهٔ `content` است و Git Repository یک سطح بالاتر قرار دارد، افزونه همان Repository سایت را پیدا می‌کند. تنظیمات پیشنهادی:
+
+- `Pull on startup`: روشن
+- `Auto commit-and-sync after stopping file edits`: روشن
+- فاصلهٔ Auto backup: حدود ۱۰ دقیقه
+- `Push on commit-and-sync`: روشن
+- Commit message: `content: automatic Obsidian sync`
+- Branch: `main`
+
+بعد از تنظیم، یک بار از Command Palette فرمان **Obsidian Git: Commit-and-sync** را اجرا کن. از آن پس افزونه تغییرها را Stage، Commit، Pull و Push می‌کند و نیازی نیست برای هر تغییر پیام Commit بنویسی. پوشهٔ `.obsidian/` همچنان محلی و Ignore می‌ماند تا تنظیمات دستگاه وارد Repository نشود.
+
+> `draft: true` محتوا را از سایت، RSS، Sitemap و Search پنهان می‌کند، اما فایل Markdown داخل یک Repository عمومی همچنان در GitHub قابل دیدن است. هیچ یادداشت محرمانه یا پیش‌نویس خصوصی را در این Repository عمومی ذخیره نکن.
+
+گردش‌کار دستی جایگزین:
 
 ```bash
 pnpm check
@@ -138,11 +153,11 @@ git push origin main
 
 برای تغییرات کد یا مستندات به‌جای `git add content` از `git add .` استفاده کن. قبل از Commit مطمئن شو هیچ Original، فایل RAW یا وضعیت محلی Obsidian Stage نشده است.
 
-Remote فعلی Clone به مخزن اصلی Astro Cactus اشاره می‌کند و باید به‌عنوان `upstream` نگه داشته شود. مخزن خصوصی شخصی هنوز به‌علت احراز هویت نامعتبر GitHub ساخته نشده است؛ دستورهای دقیق در تحویل نهایی ارائه می‌شوند.
+مخزن اصلی Astro Cactus با نام `upstream` نگه داشته می‌شود و مخزن سایت با نام `origin` استفاده می‌شود.
 
 ## Domain
 
-منبع اصلی URL تولید در `src/site.config.ts` و مقدار `siteConfig.url` است. Canonical، Sitemap، RSS و Open Graph از `Astro.site`/همین مقدار مشتق می‌شوند. مقدار فعلی عمداً `https://amirhh.site` است.
+منبع اصلی URL تولید در `src/site.config.ts` و مقدار `siteConfig.url` است. Canonical، Sitemap، RSS و Open Graph از `Astro.site`/همین مقدار مشتق می‌شوند. مقدار فعلی `https://artsnet.ir` است.
 
 برای مهاجرت دامنه:
 

@@ -6,7 +6,21 @@
 2. از `_templates` قالب مناسب را وارد یک فایل جدید کن.
 3. تا زمان آماده‌شدن محتوا `draft: true` را نگه دار.
 4. `pnpm dev` را برای پیش‌نمایش و `pnpm check` را پیش از Push اجرا کن.
-5. برای انتشار مقدار Draft را `false` کن، Commit بزن و Push کن.
+5. برای انتشار مقدار Draft را `false` کن؛ Obsidian Git تغییر را خودکار Commit و Push می‌کند.
+
+## همگام‌سازی خودکار با Obsidian Git
+
+افزونهٔ Community با نام **Obsidian Git** را نصب کن و این گزینه‌ها را فعال کن:
+
+- Pull هنگام اجرای Obsidian
+- Auto commit-and-sync پس از توقف ویرایش یا هر ۱۰ دقیقه
+- Push هنگام commit-and-sync
+- Branch برابر `main`
+- پیام خودکار برابر `content: automatic Obsidian sync`
+
+برای اولین اجرا از Command Palette فرمان **Obsidian Git: Commit-and-sync** را بزن. بعد از آن نوشتن پیام Commit لازم نیست. اگر می‌خواهی قبل از Push خروجی سایت را هم ببینی، `pnpm dev` را جداگانه اجرا کن؛ بررسی نهایی روی GitHub نیز با CI انجام می‌شود.
+
+> Repository عمومی است؛ بنابراین `draft: true` فقط انتشار در سایت را متوقف می‌کند و فایل منبع را در GitHub مخفی نمی‌کند. محتوای محرمانه را داخل این Vault قرار نده.
 
 ## نوشتهٔ فارسی
 

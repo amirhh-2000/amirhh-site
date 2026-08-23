@@ -2,7 +2,7 @@ import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 import type { Locale, SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-	url: "https://amirhh.site",
+	url: "https://artsnet.ir",
 	author: "Amir Hossein",
 	defaultLocale: "fa",
 	showLogo: true,
