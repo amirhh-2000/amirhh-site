@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { contentSlug, findTranslation } from "@/data/content";
+import { ui } from "@/i18n";
+import Base from "@/layouts/Base.astro";
+import type { Locale } from "@/types";
+export async function getStaticPaths() {
+	const all = await getCollection("photography");
+	return all
+		.filter((entry) => !entry.data.draft)
+		.map((entry) => {
+			const locale = entry.data.language;
+			const translation = findTranslation(entry, all);
+			return {
+				params: { locale, slug: contentSlug(entry.id, locale) },
+				props: {
+					entry,
+					alternateHref: translation
+						? `/${translation.data.language}/photography/${contentSlug(translation.id, translation.data.language)}/`
+						: undefined,
+				},
+			};
+		});
+}
+const { entry, alternateHref } = Astro.props as {
+	entry: CollectionEntry<"photography">;
+	alternateHref?: string;
+};
+const locale = entry.data.language as Locale;
+const { Content } = await render(entry);
+---
+<Base meta={{ title: entry.data.title, description: entry.data.description, locale, alternateHref, articleDate: entry.data.publishedAt.toISOString(), ogImage: entry.data.cover.src.src }}>
+	<article><header class="mb-10"><p class="text-muted mb-2 text-xs"><FormattedDate date={entry.data.publishedAt} locale={locale} /></p><h1 class="text-accent-2 text-3xl font-semibold sm:text-4xl">{entry.data.title}</h1><p class="text-muted mt-4">{entry.data.description}</p></header>
+		<div class="prose prose-cactus mb-12 max-w-none"><Content /></div>
+		<div class="space-y-16">{entry.data.photos.map((photo) => <figure><Image src={photo.src} alt={photo.alt} widths={[640, 960, 1440]} sizes="(max-width: 768px) 100vw, 768px" class="h-auto w-full rounded-sm" loading="lazy" /><figcaption class="text-muted mt-4 text-sm">{photo.title && <strong class="text-global-text me-2">{photo.title}</strong>}{photo.caption && <p class="mt-1">{photo.caption}</p>}<dl class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs"><div><dt class="inline">{ui[locale].commercialUse}: </dt><dd class="inline">{ui[locale][photo.commercialUse]}</dd></div><div><dt class="inline">{ui[locale].highRes}: </dt><dd class="inline">{ui[locale][photo.highRes]}</dd></div></dl></figcaption></figure>)}</div>
+	</article>
+</Base>

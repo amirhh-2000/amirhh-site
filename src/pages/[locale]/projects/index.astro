@@ -1,0 +1,17 @@
+---
+import ProjectCard from "@/components/content/ProjectCard.astro";
+import { contentSlug, getProjects } from "@/data/content";
+import { isLocale, locales, otherLocale, ui } from "@/i18n";
+import Base from "@/layouts/Base.astro";
+export function getStaticPaths() {
+	return locales.map((locale) => ({ params: { locale } }));
+}
+const value = Astro.params.locale;
+if (!isLocale(value)) return Astro.redirect("/fa/projects/");
+const locale = value;
+const entries = await getProjects(locale);
+---
+<Base meta={{ title: ui[locale].projects, description: locale === "fa" ? "پروژه‌هایی که ساخته‌ام یا در حال ساختنشان هستم." : "Things I have built or am currently building.", locale, alternateHref: `/${otherLocale(locale)}/projects/` }}>
+	<header class="mb-12"><h1 class="title">{ui[locale].projects}</h1></header>
+	{entries.length ? <ul class="space-y-6" role="list">{entries.map((entry) => <li><ProjectCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} /></li>)}</ul> : <p>{ui[locale].noItems}</p>}
+</Base>

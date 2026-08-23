@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ui } from "@/i18n";
+import type { Locale } from "@/types";
+
+const { entry, locale, slug } = Astro.props as {
+	entry: CollectionEntry<"project">;
+	locale: Locale;
+	slug: string;
+};
+---
+<article class="grid gap-1 sm:grid-cols-[auto_1fr]">
+	<div class="text-muted min-w-30 font-semibold">{entry.data.year}</div>
+	<div><h3><a class="cactus-link" href={`/${locale}/projects/${slug}/`}>{entry.data.name}</a></h3><p class="text-muted mt-1">{entry.data.description}</p><span class="text-muted mt-1 inline-block text-xs">{ui[locale].statuses[entry.data.status]}</span></div>
+</article>

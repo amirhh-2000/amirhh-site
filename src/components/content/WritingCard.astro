@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { ui } from "@/i18n";
+import type { Locale } from "@/types";
+
+const { entry, locale, slug } = Astro.props as {
+	entry: CollectionEntry<"writing">;
+	locale: Locale;
+	slug: string;
+};
+---
+<article class="grid gap-1 sm:grid-cols-[auto_1fr]">
+	<FormattedDate class="text-muted min-w-30 font-semibold" date={entry.data.publishedAt} locale={locale} />
+	<h3><a class="cactus-link" href={`/${locale}/writing/${slug}/`}>{entry.data.title}</a></h3>
+	<div class="text-muted text-xs sm:col-start-2"><a class="hover:underline" href={`/${locale}/categories/${entry.data.category}/`}>{ui[locale].categories[entry.data.category]}</a></div>
+</article>

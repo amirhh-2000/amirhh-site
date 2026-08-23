@@ -98,6 +98,28 @@
 		scroll-margin-block: 5ex;
 	}
 
+	body {
+		font-family: "JetBrains Mono", Consolas, ui-monospace, monospace;
+		line-height: 1.85;
+	}
+
+	html[lang="fa"] body {
+		font-family: "Estedad", Tahoma, sans-serif;
+	}
+
+	code,
+	kbd,
+	pre,
+	samp {
+		direction: ltr;
+		font-family: "JetBrains Mono", ui-monospace, monospace;
+		text-align: left;
+	}
+
+	::selection {
+		background: color-mix(in oklch, var(--color-accent) 28%, transparent);
+	}
+
 	@view-transition {
 		navigation: auto;
 	}

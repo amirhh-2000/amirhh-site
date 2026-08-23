@@ -1,5 +1,23 @@
 @import "@pagefind/component-ui/css" layer(pagefind);
 
+pagefind-modal-trigger:not(:defined) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: calc(var(--spacing) * 9);
+	height: calc(var(--spacing) * 9);
+	margin-inline-start: auto;
+	color: var(--color-global-text);
+}
+
+pagefind-modal-trigger:not(:defined):hover {
+	color: var(--color-accent);
+}
+
+pagefind-modal-trigger:defined > .search-fallback {
+	display: none;
+}
+
 :root {
 	--pf-text-muted: var(--color-global-text);
 	--pf-background: var(--color-global-bg);

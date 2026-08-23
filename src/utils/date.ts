@@ -1,23 +1,9 @@
-import type { CollectionEntry } from "astro:content";
 import { siteConfig } from "@/site.config";
+import type { Locale } from "@/types";
 
-export function getFormattedDate(
-	date: Date | undefined,
-	options?: Intl.DateTimeFormatOptions,
-): string {
-	if (date === undefined) {
-		return "Invalid Date";
-	}
-
-	return new Intl.DateTimeFormat(siteConfig.lang, {
-		...(siteConfig.date.options as Intl.DateTimeFormatOptions),
+export function getFormattedDate(date: Date, locale: Locale, options?: Intl.DateTimeFormatOptions) {
+	return new Intl.DateTimeFormat(locale === "fa" ? "fa-IR" : "en-US", {
+		...siteConfig.date.options,
 		...options,
 	}).format(date);
-}
-
-export function collectionDateSort(
-	a: CollectionEntry<"post" | "note">,
-	b: CollectionEntry<"post" | "note">,
-) {
-	return b.data.publishDate.getTime() - a.data.publishDate.getTime();
 }

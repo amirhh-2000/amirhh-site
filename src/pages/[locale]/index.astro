@@ -1,0 +1,30 @@
+---
+import ProjectCard from "@/components/content/ProjectCard.astro";
+import WritingCard from "@/components/content/WritingCard.astro";
+import { contentSlug, getProjects, getWriting } from "@/data/content";
+import { isLocale, locales, otherLocale, ui } from "@/i18n";
+import Base from "@/layouts/Base.astro";
+
+export function getStaticPaths() {
+	return locales.map((locale) => ({ params: { locale } }));
+}
+const value = Astro.params.locale;
+if (!isLocale(value)) return Astro.redirect("/fa/");
+const locale = value;
+const copy = ui[locale];
+const [writing, projects] = await Promise.all([getWriting(locale), getProjects(locale)]);
+---
+<Base meta={{ title: locale === "fa" ? "امیرحسین" : "Amir Hossein", description: copy.intro, locale, alternateHref: `/${otherLocale(locale)}/` }}>
+	<section>
+		<h1 class="title mb-12">{locale === "fa" ? "سلام!" : "Hello!"}</h1>
+		<p class="mb-4">{copy.intro}</p>
+	</section>
+	<section class="mt-16">
+		<h2 class="title text-accent mb-6 text-xl"><a href={`/${locale}/writing/`}>{copy.latestWriting}</a></h2>
+		<ul class="space-y-4" role="list">{writing.slice(0, 5).map((entry) => <li><WritingCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} /></li>)}</ul>
+	</section>
+	<section class="mt-16">
+		<h2 class="title text-accent mb-6 text-xl"><a href={`/${locale}/projects/`}>{copy.featuredProjects}</a></h2>
+		<ul class="space-y-6" role="list">{projects.filter((entry) => entry.data.featured).slice(0, 3).map((entry) => <li><ProjectCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} /></li>)}</ul>
+	</section>
+</Base>

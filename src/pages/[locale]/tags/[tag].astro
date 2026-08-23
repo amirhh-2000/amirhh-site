@@ -1,0 +1,27 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import WritingCard from "@/components/content/WritingCard.astro";
+import { contentSlug } from "@/data/content";
+import Base from "@/layouts/Base.astro";
+import type { Locale } from "@/types";
+export async function getStaticPaths() {
+	const entries = await getCollection("writing", ({ data }) => !data.draft);
+	const paths: {
+		params: { locale: Locale; tag: string };
+		props: { entries: CollectionEntry<"writing">[] };
+	}[] = [];
+	for (const locale of ["fa", "en"] as const) {
+		const local = entries.filter((entry) => entry.data.language === locale);
+		for (const tag of new Set(local.flatMap((entry) => entry.data.tags)))
+			paths.push({
+				params: { locale, tag },
+				props: { entries: local.filter((entry) => entry.data.tags.includes(tag)) },
+			});
+	}
+	return paths;
+}
+const locale = Astro.params.locale as Locale;
+const tag = Astro.params.tag ?? "";
+const { entries } = Astro.props as { entries: CollectionEntry<"writing">[] };
+---
+<Base meta={{ title: `#${tag}`, description: `${entries.length} entries tagged ${tag}`, locale }}><header class="mb-10"><h1 class="title">#{tag}</h1></header>{entries.map((entry) => <WritingCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} />)}</Base>

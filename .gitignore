@@ -23,3 +23,25 @@ pnpm-debug.log*
 *.pem
 .cache
 .astro
+
+# Obsidian vault state is local to each device
+.obsidian/
+content/.obsidian/
+
+# Private photography masters must never enter the site repository
+/Photography Originals/
+/photography-originals/
+/photo-masters/
+/private-photos/
+**/originals/
+*.dng
+*.cr2
+*.cr3
+*.nef
+*.arw
+*.raf
+*.orf
+*.rw2
+*.raw
+*.tif
+*.tiff
