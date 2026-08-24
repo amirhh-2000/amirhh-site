@@ -6,6 +6,9 @@ export const contentSlug = (id: string, locale: Locale) =>
 
 export const photographySlug = (id: string) => id.replace(/\/index$/, "");
 
+export const photoSlug = (slug: string | undefined, index: number) =>
+	slug ?? String(index + 1).padStart(2, "0");
+
 export async function getWriting(locale: Locale) {
 	return (
 		await getCollection("writing", ({ data }) => data.language === locale && !data.draft)

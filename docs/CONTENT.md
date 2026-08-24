@@ -122,23 +122,20 @@ draft: true
 tags: [yazd, night]
 cover:
   src: ./photo.jpg
-  alt:
-    fa: "کوچه‌ای در یزد در شب"
-    en: "An alley in Yazd at night"
 photos:
   - src: ./photo.jpg
-    title:
-      fa: "کوچه"
-      en: "The Alley"
-    alt:
-      fa: "کوچهٔ خشتی زیر نور شب"
-      en: "A mud-brick alley at night"
-    caption:
-      fa: "توضیح اختیاری عکس"
-      en: "Optional caption"
-    commercialUse: paid
-    highRes: paid
 ---
+```
+
+برای هر عکس فقط `src` لازم است. عنوان، Alt، Caption، Slug، مجوزها و پرداخت را فقط وقتی مقدار واقعی داری اضافه کن. تصویرها در صفحهٔ مجموعه به‌صورت Grid سه‌ستونه نمایش داده می‌شوند و هرکدام صفحهٔ مستقل خودشان را دارند.
+
+برای نمایش دکمهٔ NOWPayments بدون قیمت و بدون لینک ریالی:
+
+```yaml
+photos:
+  - src: ./photo.jpg
+    purchase:
+      nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
 ```
 
 راهنمای کامل آماده‌سازی Preview، انتشار دوزبانه، مجوز، قیمت، پرداخت ریالی، NOWPayments و تحویل فایل در [`PHOTOGRAPHY.md`](PHOTOGRAPHY.md) قرار دارد.
@@ -148,7 +145,7 @@ photos:
 Draft پیش‌فرض Schema برابر `true` است. Draftها از Route، Home، List، Tags، RSS، Sitemap و Search حذف می‌شوند.
 
 ```yaml
-draft: true  # در حال نوشتن
+draft: true # در حال نوشتن
 draft: false # آمادهٔ انتشار
 ```
 

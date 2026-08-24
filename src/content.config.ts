@@ -57,26 +57,27 @@ const photography = defineCollection({
 			description: localizedText,
 			publishedAt: date,
 			tags: z.array(z.string()).default([]),
-			cover: z.object({ src: image(), alt: localizedText }),
+			cover: z.object({ src: image(), alt: localizedText.optional() }),
 			draft: z.boolean().default(true),
 			photos: z
 				.array(
 					z.object({
 						src: image(),
+						slug: z
+							.string()
+							.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and hyphens.")
+							.optional(),
 						title: localizedText.optional(),
-						alt: localizedText,
+						alt: localizedText.optional(),
 						caption: localizedText.optional(),
-						tags: z.array(z.string()).default([]),
-						commercialUse: z.enum(["free", "paid"]).default("paid"),
-						highRes: z.enum(["free", "paid"]).default("paid"),
+						tags: z.array(z.string()).optional(),
+						commercialUse: z.enum(["free", "paid"]).optional(),
+						highRes: z.enum(["free", "paid"]).optional(),
 						purchase: z
 							.object({
-								priceToman: z.number().int().positive(),
+								priceToman: z.number().int().positive().optional(),
 								iranPaymentUrl: z.url().optional(),
 								nowPaymentsUrl: z.url().optional(),
-							})
-							.refine((value) => value.iranPaymentUrl || value.nowPaymentsUrl, {
-								message: "Add at least one payment URL.",
 							})
 							.optional(),
 					}),

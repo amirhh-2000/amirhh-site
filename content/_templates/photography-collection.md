@@ -10,23 +10,20 @@ draft: true
 tags: []
 cover:
   src: ./cover.jpg
-  alt:
-    fa: "توضیح تصویر جلد"
-    en: "Cover image description"
 photos:
   - src: ./001.jpg
-    title:
-      fa: "عنوان اختیاری عکس"
-      en: "Optional photograph title"
-    alt:
-      fa: "توضیح دقیق عکس"
-      en: "Accurate photograph description"
-    caption:
-      fa: "توضیح اختیاری"
-      en: "Optional caption"
-    tags: []
-    commercialUse: paid
-    highRes: paid
+    # slug: a-stable-optional-name
+    # title:
+    #   fa: "عنوان اختیاری عکس"
+    #   en: "Optional photograph title"
+    # alt:
+    #   fa: "توضیح دقیق عکس"
+    #   en: "Accurate photograph description"
+    # caption:
+    #   fa: "توضیح اختیاری"
+    #   en: "Optional caption"
+    # commercialUse: paid
+    # highRes: paid
     # purchase:
     #   priceToman: 2500000
     #   iranPaymentUrl: "https://example.ir/payment-link"

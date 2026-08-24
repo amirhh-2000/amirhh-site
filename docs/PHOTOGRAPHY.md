@@ -1,6 +1,6 @@
 # راهنمای انتشار و فروش عکس
 
-بخش عکاسی عمداً ساده و تک‌منبعی است: هر مجموعه فقط یک فایل محتوا و یک پوشهٔ تصویر دارد و همان مجموعه در هر دو نسخهٔ فارسی و انگلیسی سایت نمایش داده می‌شود. تصویرها تکرار نمی‌شوند؛ فقط عنوان، توضیح، Alt و Caption در همان فایل به دو زبان نوشته می‌شوند.
+بخش عکاسی عمداً ساده و تک‌منبعی است: هر مجموعه فقط یک فایل محتوا و یک پوشهٔ تصویر دارد و همان مجموعه در هر دو نسخهٔ فارسی و انگلیسی سایت نمایش داده می‌شود. تصویرها تکرار نمی‌شوند و متادیتای اختیاری هر عکس، در صورت نیاز، در همان فایل به دو زبان نوشته می‌شود.
 
 ## سریع‌ترین مسیر برای انتشار یک عکس
 
@@ -56,11 +56,27 @@ draft: true
 tags: [yazd, night]
 cover:
   src: ./photo.jpg
-  alt:
-    fa: "کوچه‌ای خشتی در یزد زیر نور شب"
-    en: "A mud-brick alley in Yazd at night"
 photos:
   - src: ./photo.jpg
+---
+```
+
+قاعده‌های مهم:
+
+- دیگر `language` و `translationKey` وجود ندارند.
+- یک فایل، هر دو مسیر `/fa/photography/...` و `/en/photography/...` را می‌سازد.
+- برای هر عکس فقط `src` اجباری است. `slug`، `title`، `alt`، `caption`، `tags`، وضعیت مجوز و اطلاعات خرید همگی اختیاری‌اند.
+- در نبود `slug`، سایت به‌ترتیب مسیرهای `01`، `02` و مانند آن را می‌سازد. اگر احتمال جابه‌جاکردن ترتیب عکس‌ها وجود دارد، یک Slug انگلیسی ثابت بنویس.
+- کالکشن در یک Grid سه‌ستونه نمایش داده می‌شود و هر تصویر به صفحهٔ مستقل خودش می‌رود.
+- اگر Alt می‌نویسی، چیزی را که واقعاً در تصویر دیده می‌شود توصیف کن؛ Caption محل روایت یا زمینه است.
+- تا پایان بررسی، `draft: true` بماند.
+
+همهٔ فیلدهای اختیاری یک عکس، برای زمانی که واقعاً به آن‌ها نیاز داری:
+
+```yaml
+photos:
+  - src: ./photo.jpg
+    slug: old-alley
     title:
       fa: "کوچه"
       en: "The Alley"
@@ -73,15 +89,7 @@ photos:
     tags: [alley, architecture]
     commercialUse: paid
     highRes: paid
----
 ```
-
-قاعده‌های مهم:
-
-- دیگر `language` و `translationKey` وجود ندارند.
-- یک فایل، هر دو مسیر `/fa/photography/...` و `/en/photography/...` را می‌سازد.
-- Alt باید چیزی را که واقعاً در تصویر دیده می‌شود توصیف کند؛ Caption محل روایت یا زمینه است.
-- تا پایان بررسی، `draft: true` بماند.
 
 ### ۵. پیش‌نمایش و انتشار
 
@@ -100,20 +108,30 @@ draft: false
 
 ## قیمت و خرید عکس
 
-پرداخت برای هر عکس اختیاری است. وقتی `purchase` را اضافه کنی، قیمت و دکمه‌های پرداخت زیر همان عکس ظاهر می‌شوند:
+پرداخت برای هر عکس اختیاری است. وقتی `purchase` را اضافه کنی، قیمت و دکمه‌های موجود در صفحهٔ مستقل همان عکس ظاهر می‌شوند:
 
 ```yaml
-    highRes: paid
-    purchase:
-      priceToman: 2500000
-      iranPaymentUrl: "https://your-iranian-payment-link.example"
-      nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
+highRes: paid
+purchase:
+  priceToman: 2500000
+  iranPaymentUrl: "https://your-iranian-payment-link.example"
+  nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
 ```
 
-- `priceToman` عدد صحیح و به تومان است؛ جداکننده و واژهٔ «تومان» ننویس.
-- حداقل یکی از دو URL باید وجود داشته باشد.
-- اگر فقط پرداخت ریالی می‌خواهی، `nowPaymentsUrl` را حذف کن و برعکس.
-- برای عکس رایگان، `purchase` را ننویس و `highRes: free` بگذار.
+- `priceToman` اختیاری است. اگر می‌نویسی، عدد صحیح و به تومان باشد؛ جداکننده و واژهٔ «تومان» ننویس.
+- هر دو لینک اختیاری‌اند. می‌توانی فقط `nowPaymentsUrl` را ثبت کنی و فعلاً لینک ریالی نداشته باشی.
+- خود `purchase:` ضروری است؛ نوشتن `nowPaymentsUrl` بیرون از آن هیچ دکمه‌ای نمی‌سازد.
+- اگر `commercialUse` یا `highRes` را ننویسی، هیچ متن پیش‌فرضی برای آن روی صفحه ظاهر نمی‌شود.
+- برای عکس رایگان می‌توانی `purchase` را ننویسی و در صورت نیاز `highRes: free` بگذاری.
+
+ساده‌ترین حالت برای نمایش فقط دکمهٔ NOWPayments:
+
+```yaml
+photos:
+  - src: ./photo.jpg
+    purchase:
+      nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
+```
 
 ### پرداخت ایرانی: ساده‌ترین انتخاب
 
@@ -142,10 +160,11 @@ draft: false
 <a href="https://nowpayments.io/payment/?iid=123&source=button">...</a>
 ```
 
-فقط این بخش را در متادیتا قرار بده:
+فقط این URL را داخل بخش `purchase` در متادیتا قرار بده:
 
 ```yaml
-nowPaymentsUrl: "https://nowpayments.io/payment/?iid=123&source=button"
+purchase:
+  nowPaymentsUrl: "https://nowpayments.io/payment/?iid=123&source=button"
 ```
 
 سایت دکمه را با ظاهر خودش می‌سازد؛ در نتیجه نیازی به نگهداری تصویر دکمه یا اسکریپت خارجی در Markdown نیست.
@@ -168,8 +187,8 @@ NOWPayments یک Payment Widget قابل Embed هم دارد که پرداخت �
 
 - [ ] Original بیرون از Repository است.
 - [ ] Preview وب sRGB و کم‌حجم است.
-- [ ] عنوان، توضیح، Alt و Caption هر دو زبان کامل‌اند.
-- [ ] `commercialUse` و `highRes` آگاهانه انتخاب شده‌اند.
+- [ ] فقط متادیتایی که واقعاً لازم است نوشته شده است؛ متن نمونه داخل فایل نمانده است.
+- [ ] `commercialUse` و `highRes` فقط در صورت نیاز ثبت شده‌اند.
 - [ ] لینک‌های پرداخت با مبلغ کم آزمایش شده‌اند.
 - [ ] `pnpm check` موفق است.
 - [ ] `draft` فقط در پایان `false` شده است.

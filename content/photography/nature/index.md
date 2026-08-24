@@ -10,21 +10,11 @@ draft: false
 tags: []
 cover:
   src: ./ladybug.jpg
-  alt:
-    fa: کفشدوزک
-    en: ladybug
 photos:
   - src: ./ladybug.jpg
-    title:
-      fa: کفشدوزک
-      en: ladybug
-    alt:
-      fa: توضیح دقیق عکس
-      en: Accurate photograph description
-    caption:
-      fa: توضیح اختیاری
-      en: Optional caption
-    tags: []
     commercialUse: free
     highRes: paid
+    purchase:
+      priceToman: 49000
+      nowPaymentsUrl: "https://nowpayments.io/payment/?iid=5883921681&source=button"
 ---
