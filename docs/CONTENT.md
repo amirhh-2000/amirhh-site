@@ -99,64 +99,49 @@ draft: true
 
 ## مجموعهٔ عکاسی
 
-ساختار پیشنهادی:
+عکاسی برخلاف نوشته‌ها و پروژه‌ها تک‌منبعی است. هر مجموعه یک فایل دارد و با متن فارسی و انگلیسی همان فایل در هر دو نسخهٔ سایت ساخته می‌شود:
 
 ```text
-content/photography/
-├── assets/yazd-at-night/
-│   ├── cover.jpg
-│   ├── 001.jpg
-│   └── 002.jpg
-└── fa/yazd-at-night/index.md
+content/photography/yazd-at-night/
+├── index.md
+└── photo.jpg
 ```
 
-فایل مجموعه:
+نمونهٔ مینیمال:
 
 ```yaml
 ---
-title: "یزد در شب"
-description: "مجموعه‌ای از خیابان‌ها و نور شب"
+title:
+  fa: "یزد در شب"
+  en: "Yazd at Night"
+description:
+  fa: "مجموعه‌ای از خیابان‌ها و نور شب"
+  en: "Streets and light after dark"
 publishedAt: 2026-08-23
-language: fa
 draft: true
-tags: [یزد, شب, معماری]
-# translationKey: yazd-at-night
+tags: [yazd, night]
 cover:
-  src: ../../assets/yazd-at-night/cover.jpg
-  alt: "کوچه‌ای در یزد در شب"
+  src: ./photo.jpg
+  alt:
+    fa: "کوچه‌ای در یزد در شب"
+    en: "An alley in Yazd at night"
 photos:
-  - src: ../../assets/yazd-at-night/001.jpg
-    title: "کوچه"
-    alt: "کوچهٔ خشتی زیر نور شب"
-    caption: "توضیح اختیاری عکس"
-    tags: [کوچه, نور]
+  - src: ./photo.jpg
+    title:
+      fa: "کوچه"
+      en: "The Alley"
+    alt:
+      fa: "کوچهٔ خشتی زیر نور شب"
+      en: "A mud-brick alley at night"
+    caption:
+      fa: "توضیح اختیاری عکس"
+      en: "Optional caption"
     commercialUse: paid
     highRes: paid
-  - src: ../../assets/yazd-at-night/002.jpg
-    alt: "نمای یک بادگیر در شب"
-    tags: [بادگیر, معماری]
-    commercialUse: free
-    highRes: free
 ---
 ```
 
-فرایند افزودن عکس:
-
-1. مجموعه و پوشهٔ `assets/<collection-slug>` را بساز.
-2. فقط JPEG/WebP/AVIFهای Web-ready را داخل Assets بگذار؛ ترجیحاً sRGB و با ضلع بلند حدود ۲۰۰۰ تا ۲۴۰۰ پیکسل.
-3. Cover و هر Photo را با مسیر نسبی وارد Frontmatter کن.
-4. برای هر عکس Alt، Tag و دو وضعیت مجوز را تعیین کن.
-5. `pnpm dev` و سپس `pnpm check` را اجرا کن.
-6. در پایان `draft: false` و سپس Commit/Push کن.
-
-### مجوز عکس
-
-- `commercialUse: free`: استفادهٔ شخصی و تجاری رایگان طبق شرایط سایت.
-- `commercialUse: paid`: استفادهٔ شخصی رایگان؛ استفادهٔ تجاری نیازمند مجوز پولی.
-- `highRes: free`: نسخهٔ باکیفیت قابل ارائهٔ رایگان است.
-- `highRes: paid`: نسخهٔ باکیفیت فقط از مسیر درخواست/خرید آینده ارائه می‌شود.
-
-هیچ مسیر فایل Original یا RAW را در YAML ننویس. Originalها باید بیرون از Repository باشند؛ برای نمونه `E:\Photography Originals\<collection>\`. قرار ندادن دکمهٔ Download امنیت ایجاد نمی‌کند: هر فایلی که وارد Build شود عمومی است.
+راهنمای کامل آماده‌سازی Preview، انتشار دوزبانه، مجوز، قیمت، پرداخت ریالی، NOWPayments و تحویل فایل در [`PHOTOGRAPHY.md`](PHOTOGRAPHY.md) قرار دارد.
 
 ## Draft و انتشار
 

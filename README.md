@@ -3,6 +3,7 @@
 راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و مجموعه‌های عکاسی از Markdown و YAML Frontmatter خوانده می‌شوند.
 
 راهنمای عملی و نمونهٔ کامل Frontmatter در [`docs/CONTENT.md`](docs/CONTENT.md) قرار دارد.
+راهنمای تک‌منبعی انتشار، قیمت‌گذاری و فروش عکس در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) است.
 
 ## Development
 
@@ -47,9 +48,9 @@ content/
 ├── writing/{fa,en}/
 ├── projects/{fa,en}/
 ├── photography/
-│   ├── assets/<collection-slug>/
-│   ├── fa/<collection-slug>/index.md
-│   └── en/<collection-slug>/index.md
+│   └── <collection-slug>/
+│       ├── index.md
+│       └── photo.jpg
 └── pages/{fa,en}/
 ```
 
@@ -94,10 +95,10 @@ active | experimental | maintained | archived
 فقط نسخه‌های Web-ready را در Repository قرار بده:
 
 ```text
-content/photography/assets/<collection-slug>/
+content/photography/<collection-slug>/
 ```
 
-فایل مجموعه و متادیتای عکس‌ها در مسیر زبان قرار می‌گیرد. Astro از تصاویر Preview اندازه‌های Responsive تولید می‌کند؛ تصاویر فهرست و گالری Lazy-load می‌شوند و ابعاد از Metadata تصویر گرفته می‌شود تا جابه‌جایی Layout کم شود.
+هر مجموعه فقط یک فایل دارد و همان عکس‌ها را با متن محلی‌شده در هر دو زبان نمایش می‌دهد. Astro از تصاویر Preview اندازه‌های Responsive تولید می‌کند؛ تصاویر فهرست و گالری Lazy-load می‌شوند و ابعاد از Metadata تصویر گرفته می‌شود تا جابه‌جایی Layout کم شود.
 
 برای هر عکس این دو مقدار باید روشن باشند:
 

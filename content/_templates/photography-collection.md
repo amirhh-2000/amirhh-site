@@ -1,22 +1,34 @@
 ---
-title: "نام مجموعه"
-description: "توضیح کوتاه مجموعه"
+title:
+  fa: "نام مجموعه"
+  en: "Collection title"
+description:
+  fa: "توضیح کوتاه مجموعه"
+  en: "A short collection description"
 publishedAt: 2026-01-01
-language: fa
 draft: true
 tags: []
-# translationKey: stable-shared-key
 cover:
-  src: ../../assets/collection-slug/cover.jpg
-  alt: "توضیح تصویر جلد"
+  src: ./cover.jpg
+  alt:
+    fa: "توضیح تصویر جلد"
+    en: "Cover image description"
 photos:
-  - src: ../../assets/collection-slug/001.jpg
-    title: "عنوان اختیاری عکس"
-    alt: "توضیح دقیق عکس"
-    caption: "توضیح اختیاری"
+  - src: ./001.jpg
+    title:
+      fa: "عنوان اختیاری عکس"
+      en: "Optional photograph title"
+    alt:
+      fa: "توضیح دقیق عکس"
+      en: "Accurate photograph description"
+    caption:
+      fa: "توضیح اختیاری"
+      en: "Optional caption"
     tags: []
     commercialUse: paid
     highRes: paid
+    # purchase:
+    #   priceToman: 2500000
+    #   iranPaymentUrl: "https://example.ir/payment-link"
+    #   nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
 ---
-
-متن کوتاه مجموعه را اینجا بنویس.

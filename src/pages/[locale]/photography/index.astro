@@ -1,6 +1,6 @@
 ---
 import PhotographyCard from "@/components/content/PhotographyCard.astro";
-import { contentSlug, getPhotography } from "@/data/content";
+import { getPhotography, photographySlug } from "@/data/content";
 import { isLocale, locales, otherLocale, ui } from "@/i18n";
 import Base from "@/layouts/Base.astro";
 export function getStaticPaths() {
@@ -9,9 +9,9 @@ export function getStaticPaths() {
 const value = Astro.params.locale;
 if (!isLocale(value)) return Astro.redirect("/fa/photography/");
 const locale = value;
-const entries = await getPhotography(locale);
+const entries = await getPhotography();
 ---
 <Base meta={{ title: ui[locale].photography, description: locale === "fa" ? "مجموعه‌ای انتخاب‌شده از عکس‌ها." : "A curated selection of photographs.", locale, alternateHref: `/${otherLocale(locale)}/photography/` }}>
 	<header class="mb-12"><h1 class="title">{ui[locale].photography}</h1></header>
-	<div class="grid gap-12">{entries.length ? entries.map((entry) => <PhotographyCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} />) : <p>{ui[locale].noItems}</p>}</div>
+	{entries.length > 0 && <div class="grid gap-12">{entries.map((entry) => <PhotographyCard entry={entry} locale={locale} slug={photographySlug(entry.id)} />)}</div>}
 </Base>

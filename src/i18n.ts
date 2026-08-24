@@ -34,6 +34,11 @@ export const ui = {
 		highRes: "نسخهٔ باکیفیت",
 		free: "رایگان",
 		paid: "با هماهنگی / پولی",
+		photoPrice: "قیمت نسخهٔ باکیفیت",
+		toman: "تومان",
+		payIran: "پرداخت ریالی",
+		payCrypto: "پرداخت رمزارزی",
+		paymentDeliveryNote: "تحویل فایل پس از تأیید پرداخت با هماهنگی انجام می‌شود.",
 		rss: "خوراک RSS",
 		back: "بازگشت",
 		categories: {
@@ -74,6 +79,11 @@ export const ui = {
 		highRes: "High-resolution file",
 		free: "Free",
 		paid: "Paid / by arrangement",
+		photoPrice: "High-resolution price",
+		toman: "toman",
+		payIran: "Pay in Iran",
+		payCrypto: "Pay with crypto",
+		paymentDeliveryNote: "The file is delivered by arrangement after payment is confirmed.",
 		rss: "RSS feed",
 		back: "Back",
 		categories: {

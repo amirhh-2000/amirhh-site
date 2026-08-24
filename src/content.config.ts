@@ -11,6 +11,7 @@ const date = z
 		message: "Use a valid date such as 2026-08-23.",
 	});
 const requiredText = z.string().trim().min(1, "This field cannot be empty.");
+const localizedText = z.object({ fa: requiredText, en: requiredText });
 
 const writing = defineCollection({
 	loader: glob({ base: "./content/writing", pattern: "**/*.{md,mdx}" }),
@@ -52,24 +53,32 @@ const photography = defineCollection({
 	loader: glob({ base: "./content/photography", pattern: "**/*.{md,mdx}" }),
 	schema: ({ image }) =>
 		z.object({
-			title: requiredText,
-			description: requiredText,
+			title: localizedText,
+			description: localizedText,
 			publishedAt: date,
-			language,
 			tags: z.array(z.string()).default([]),
-			cover: z.object({ src: image(), alt: z.string() }),
-			translationKey: z.string().optional(),
+			cover: z.object({ src: image(), alt: localizedText }),
 			draft: z.boolean().default(true),
 			photos: z
 				.array(
 					z.object({
 						src: image(),
-						title: z.string().optional(),
-						alt: z.string(),
-						caption: z.string().optional(),
+						title: localizedText.optional(),
+						alt: localizedText,
+						caption: localizedText.optional(),
 						tags: z.array(z.string()).default([]),
 						commercialUse: z.enum(["free", "paid"]).default("paid"),
 						highRes: z.enum(["free", "paid"]).default("paid"),
+						purchase: z
+							.object({
+								priceToman: z.number().int().positive(),
+								iranPaymentUrl: z.url().optional(),
+								nowPaymentsUrl: z.url().optional(),
+							})
+							.refine((value) => value.iranPaymentUrl || value.nowPaymentsUrl, {
+								message: "Add at least one payment URL.",
+							})
+							.optional(),
 					}),
 				)
 				.min(1, "A photography collection must include at least one web preview."),
