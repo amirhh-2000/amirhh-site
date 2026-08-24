@@ -1,11 +1,12 @@
 ---
-title: "A sample note"
-description: "A replaceable placeholder showing how a published piece will look."
+title: A sample note
+description: A replaceable placeholder showing how a published piece will look.
 publishedAt: 2026-08-23
 language: en
 category: personal
-tags: [sample]
-draft: false
+tags:
+  - sample
+draft: true
 translationKey: first-note
 ---
 

@@ -1,14 +1,17 @@
 ---
-name: "Personal website"
-description: "A quiet, independent home for writing, projects, and photographs. This copy is replaceable."
+name: Personal website
+description: A quiet, independent home for writing, projects, and photographs. This copy is replaceable.
 year: 2026
 status: active
 featured: true
 language: en
-draft: false
-website: "https://amirhh.site"
-repository: "https://github.com/amirhh-2000/artsnet"
-technologies: [Astro, Markdown, Pagefind]
+draft: true
+website: https://amirhh.site
+repository: https://github.com/amirhh-2000/artsnet
+technologies:
+  - Astro
+  - Markdown
+  - Pagefind
 translationKey: personal-site
 ---
 
