@@ -23,7 +23,7 @@ export const ui = {
 		projects: "پروژه‌ها",
 		about: "درباره من",
 		intro:
-			"سلام، من امیرحسینم. اینجا خانهٔ شخصی من برای نوشته‌ها، پروژه‌ها و عکس‌هایی است که انتخاب می‌کنم نگه دارم.",
+			"من امیرحسینم. اینجا خانهٔ شخصی من برای نوشته‌ها، پروژه‌ها و عکس‌هایی است که انتخاب می‌کنم نگه دارم.",
 		noItems: "هنوز چیزی اینجا منتشر نشده است.",
 		published: "منتشرشده در",
 		updated: "به‌روزرسانی",
@@ -38,8 +38,8 @@ export const ui = {
 		back: "بازگشت",
 		categories: {
 			technical: "فنی",
-			personal: "ته‌نشین‌ها",
-			spiritual: "درنگ‌ها",
+			personal: "مشاهده",
+			spiritual: "درنگ",
 			learning: "یادگیری",
 		},
 		statuses: {
@@ -63,7 +63,7 @@ export const ui = {
 		projects: "Projects",
 		about: "About",
 		intro:
-			"Hi, I’m Amir Hossein. This is my personal home for writing, projects, and photographs I choose to keep.",
+			"I’m Amir Hossein. This is my personal home for writing, projects, and photographs I choose to keep.",
 		noItems: "Nothing has been published here yet.",
 		published: "Published",
 		updated: "Updated",
@@ -78,7 +78,7 @@ export const ui = {
 		back: "Back",
 		categories: {
 			technical: "Technical",
-			personal: "Sediments",
+			personal: "Observations",
 			spiritual: "Reflections",
 			learning: "Learning",
 		},

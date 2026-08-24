@@ -12,6 +12,6 @@ const locale = value;
 const entries = await getPhotography(locale);
 ---
 <Base meta={{ title: ui[locale].photography, description: locale === "fa" ? "مجموعه‌ای انتخاب‌شده از عکس‌ها." : "A curated selection of photographs.", locale, alternateHref: `/${otherLocale(locale)}/photography/` }}>
-	<header class="mb-12"><h1 class="title">{ui[locale].photography}</h1><p class="text-muted mt-3">{locale === "fa" ? "عکس‌ها به‌صورت مجموعه‌های کوچک منتشر می‌شوند." : "Photographs are published as small, curated collections."}</p></header>
+	<header class="mb-12"><h1 class="title">{ui[locale].photography}</h1></header>
 	<div class="grid gap-12">{entries.length ? entries.map((entry) => <PhotographyCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} />) : <p>{ui[locale].noItems}</p>}</div>
 </Base>

@@ -12,6 +12,6 @@ const locale = value;
 const entries = await getWriting(locale);
 ---
 <Base meta={{ title: ui[locale].writing, description: locale === "fa" ? "همهٔ نوشته‌ها؛ فنی، شخصی و چیزهایی که در مسیر یاد می‌گیرم." : "All writing: technical, personal, and notes from learning.", locale, alternateHref: `/${otherLocale(locale)}/writing/` }}>
-	<header class="mb-12"><h1 class="title">{ui[locale].writing}</h1><p class="text-muted mt-3">{locale === "fa" ? "همهٔ نوشته‌ها در یک جای واحد؛ با دسته‌بندی و برچسب." : "Everything in one place, organized with categories and tags."}</p></header>
+	<header class="mb-12"><h1 class="title">{ui[locale].writing}</h1></header>
 	{entries.length ? <ul class="space-y-4" role="list">{entries.map((entry) => <li><WritingCard entry={entry} locale={locale} slug={contentSlug(entry.id, locale)} /></li>)}</ul> : <p>{ui[locale].noItems}</p>}
 </Base>
