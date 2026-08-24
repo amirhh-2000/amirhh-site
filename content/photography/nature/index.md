@@ -16,14 +16,8 @@ cover:
 photos:
   - src: ./ladybug.jpg
     title:
-      fa: عنوان اختیاری عکس
-      en: Optional photograph title
-    alt:
-      fa: توضیح دقیق عکس
-      en: Accurate photograph description
-    caption:
-      fa: توضیح اختیاری
-      en: Optional caption
+      fa: کفشدوزک
+      en: ladybug
     tags: []
     commercialUse: free
     highRes: paid
