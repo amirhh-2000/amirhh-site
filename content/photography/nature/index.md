@@ -18,6 +18,12 @@ photos:
     title:
       fa: کفشدوزک
       en: ladybug
+    alt:
+      fa: توضیح دقیق عکس
+      en: Accurate photograph description
+    caption:
+      fa: توضیح اختیاری
+      en: Optional caption
     tags: []
     commercialUse: free
     highRes: paid
