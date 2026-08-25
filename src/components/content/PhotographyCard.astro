@@ -1,35 +1,51 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import FormattedDate from "@/components/FormattedDate.astro";
 import type { Locale } from "@/types";
 
-const { entry, locale, slug } = Astro.props as {
-	entry: CollectionEntry<"photography">;
+type PhotographyEntry = CollectionEntry<"photography">;
+type Photograph = PhotographyEntry["data"]["photos"][number];
+
+const { entry, photo, photoIndex, locale, collectionSlug, photoSlug } = Astro.props as {
+	entry: PhotographyEntry;
+	photo: Photograph;
+	photoIndex: number;
 	locale: Locale;
-	slug: string;
+	collectionSlug: string;
+	photoSlug: string;
 };
+const collectionTitle = entry.data.title;
+const title = photo.title?.[locale];
+const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1}`;
 ---
 
-<article>
-	<a class="group block" href={`/${locale}/photography/${slug}/`}>
-		<Image
-			src={entry.data.cover.src}
-			alt={entry.data.cover.alt?.[locale] ?? entry.data.title[locale]}
-			widths={[480, 720, 960]}
-			sizes="(max-width: 768px) 100vw, 720px"
-			class="aspect-[16/9] w-full rounded-sm object-cover transition-opacity group-hover:opacity-90"
-			loading="lazy"
-		/>
-		<div class="mt-3 flex items-baseline justify-between gap-4">
-			<h3 class="text-accent-2 text-lg font-semibold group-hover:underline">
-				{entry.data.title[locale]}
-			</h3><FormattedDate
-				class="text-muted shrink-0 text-xs"
-				date={entry.data.publishedAt}
-				locale={locale}
+<article class="min-w-0">
+	<a
+		class="group block"
+		href={`/${locale}/photography/${collectionSlug}/${photoSlug}/`}
+		aria-label={title ?? alt}
+	>
+		<div class="bg-muted/10 overflow-hidden rounded-sm">
+			<Image
+				src={photo.src}
+				alt={alt}
+				widths={[320, 480, 720]}
+				sizes="(max-width: 767px) 33vw, 240px"
+				class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.015] group-hover:opacity-90"
+				loading="lazy"
 			/>
 		</div>
-		<p class="text-muted mt-1">{entry.data.description[locale]}</p>
+		<div class="mt-2 flex min-w-0 items-baseline justify-between gap-2">
+			{title && <span class="text-global-text truncate text-xs font-medium">{title}</span>}
+			<span
+				class:list={[
+					"text-muted truncate text-[0.68rem] font-medium tracking-wide",
+					{ "ms-auto": title },
+				]}
+				dir="ltr"
+			>
+				{collectionTitle}
+			</span>
+		</div>
 	</a>
 </article>

@@ -1,15 +1,11 @@
 ---
-title:
-  fa: "نام مجموعه"
-  en: "Collection title"
+title: "Collection title"
 description:
   fa: "توضیح کوتاه مجموعه"
   en: "A short collection description"
 publishedAt: 2026-01-01
 draft: true
 tags: []
-cover:
-  src: ./cover.jpg
 photos:
   - src: ./001.jpg
     # slug: a-stable-optional-name

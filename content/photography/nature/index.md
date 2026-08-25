@@ -1,15 +1,11 @@
 ---
-title:
-  fa: طبیعت
-  en: Nature
+title: Nature
 description:
   fa: لحظات زیبای طبیعت
   en: Beautiful moments of nature
 publishedAt: 2026-08-24
 draft: false
 tags: []
-cover:
-  src: ./ladybug.jpg
 photos:
   - src: ./ladybug.jpg
     commercialUse: free

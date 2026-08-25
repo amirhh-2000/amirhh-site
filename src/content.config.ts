@@ -53,11 +53,10 @@ const photography = defineCollection({
 	loader: glob({ base: "./content/photography", pattern: "**/*.{md,mdx}" }),
 	schema: ({ image }) =>
 		z.object({
-			title: localizedText,
+			title: requiredText,
 			description: localizedText,
 			publishedAt: date,
 			tags: z.array(z.string()).default([]),
-			cover: z.object({ src: image(), alt: localizedText.optional() }),
 			draft: z.boolean().default(true),
 			photos: z
 				.array(
