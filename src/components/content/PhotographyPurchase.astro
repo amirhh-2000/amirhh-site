@@ -2,55 +2,22 @@
 import { ui } from "@/i18n";
 import type { Locale } from "@/types";
 
-const { locale, priceToman, iranPaymentUrl, nowPaymentsUrl, telegramUrl } = Astro.props as {
+const { locale, iranPaymentUrl, nowPaymentsUrl, telegramUrl } = Astro.props as {
 	locale: Locale;
-	priceToman?: number;
 	iranPaymentUrl?: string;
 	nowPaymentsUrl?: string;
 	telegramUrl?: string;
 };
-const price = priceToman
-	? new Intl.NumberFormat(locale === "fa" ? "fa-IR" : "en-US").format(priceToman)
-	: undefined;
+const paymentUrl = locale === "fa" ? iranPaymentUrl : nowPaymentsUrl;
+const paymentLabel = locale === "fa" ? ui.fa.payIran : ui.en.payCrypto;
 ---
 
 <aside class="border-muted/40 mt-5 border-s ps-4 pt-4">
-	{
-		price && (
-			<>
-				<p class="text-global-text text-sm font-semibold">{ui[locale].photoPrice}</p>
-				<p class="mt-1 text-sm">
-					{price} {ui[locale].toman}
-				</p>
-			</>
-		)
-	}
-	{
-		(iranPaymentUrl || nowPaymentsUrl) && (
-			<div class="mt-4 flex flex-wrap gap-3">
-				{iranPaymentUrl && (
-					<a
-						class="cactus-link text-sm"
-						href={iranPaymentUrl}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{ui[locale].payIran}
-					</a>
-				)}
-				{nowPaymentsUrl && (
-					<a
-						class="cactus-link text-sm"
-						href={nowPaymentsUrl}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{ui[locale].payCrypto}
-					</a>
-				)}
-			</div>
-		)
-	}
+	<div class="flex flex-wrap gap-3">
+		<a class="cactus-link text-sm" href={paymentUrl} rel="noopener noreferrer" target="_blank">
+			{paymentLabel}
+		</a>
+	</div>
 	<p class="text-muted mt-3 text-xs">{ui[locale].paymentDeliveryNote}</p>
 	{
 		telegramUrl && (

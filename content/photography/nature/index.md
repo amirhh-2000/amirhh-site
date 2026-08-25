@@ -14,6 +14,5 @@ photos:
     commercialUse: free
     highRes: paid
     purchase:
-      priceToman: 49000
       nowPaymentsUrl: "https://nowpayments.io/payment/?iid=5883921681&source=button"
 ---

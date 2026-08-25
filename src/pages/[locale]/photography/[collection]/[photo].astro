@@ -40,7 +40,7 @@ const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1
 const caption = photo.caption?.[locale];
 const purchase = photo.purchase;
 const hasPurchase = Boolean(
-	purchase && (purchase.priceToman || purchase.iranPaymentUrl || purchase.nowPaymentsUrl),
+	purchase && (locale === "fa" ? purchase.iranPaymentUrl : purchase.nowPaymentsUrl),
 );
 ---
 

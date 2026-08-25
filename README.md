@@ -3,7 +3,7 @@
 راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و مجموعه‌های عکاسی از Markdown و YAML Frontmatter خوانده می‌شوند.
 
 راهنمای عملی و نمونهٔ کامل Frontmatter در [`docs/CONTENT.md`](docs/CONTENT.md) قرار دارد.
-راهنمای تک‌منبعی انتشار، قیمت‌گذاری و فروش عکس در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) است.
+راهنمای تک‌منبعی انتشار، تنظیم قیمت در درگاه و فروش عکس در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) است.
 
 ## Development
 

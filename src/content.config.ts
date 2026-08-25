@@ -74,7 +74,6 @@ const photography = defineCollection({
 						highRes: z.enum(["free", "paid"]).optional(),
 						purchase: z
 							.object({
-								priceToman: z.number().int().positive().optional(),
 								iranPaymentUrl: z.url().optional(),
 								nowPaymentsUrl: z.url().optional(),
 								telegramUrl: z.url().optional(),
