@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "@/types";
+
+const { entry, locale, slug } = Astro.props as {
+	entry: CollectionEntry<"photography">;
+	locale: Locale;
+	slug: string;
+};
+const preview = entry.data.photos[0];
+if (!preview) throw new Error(`Photography collection ${entry.id} has no photographs.`);
+const alt = preview.alt?.[locale] ?? entry.data.title;
+---
+
+<article class="min-w-0">
+	<a class="group block" href={`/${locale}/photography/${slug}/`}>
+		<div class="bg-muted/10 overflow-hidden rounded-sm">
+			<Image
+				src={preview.src}
+				alt={alt}
+				widths={[320, 480, 720]}
+				sizes="(max-width: 767px) 33vw, 240px"
+				class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.015] group-hover:opacity-90"
+				loading="lazy"
+			/>
+		</div>
+		<h2 class="text-muted mt-2 truncate text-[0.68rem] font-medium tracking-wide" dir="ltr">
+			{entry.data.title}
+		</h2>
+	</a>
+</article>

@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { getWriting } from "@/data/content";
+import { contentSlug, getWriting } from "@/data/content";
 import { isLocale } from "@/i18n";
 import { siteConfig } from "@/site.config";
 
@@ -20,7 +20,7 @@ export async function GET(context: { params: { locale?: string }; site?: URL }) 
 			title: entry.data.title,
 			description: entry.data.description,
 			pubDate: entry.data.publishedAt,
-			link: `/${locale}/writing/${entry.id.replace(`${locale}/`, "")}/`,
+			link: `/${locale}/writing/${contentSlug(entry.id, locale)}/`,
 		})),
 	});
 }

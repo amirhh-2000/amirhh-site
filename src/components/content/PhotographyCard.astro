@@ -6,15 +6,14 @@ import type { Locale } from "@/types";
 type PhotographyEntry = CollectionEntry<"photography">;
 type Photograph = PhotographyEntry["data"]["photos"][number];
 
-const { entry, photo, photoIndex, locale, collectionSlug, photoSlug } = Astro.props as {
-	entry: PhotographyEntry;
+const { collectionTitle, photo, photoIndex, locale, collectionSlug, photoSlug } = Astro.props as {
+	collectionTitle: string;
 	photo: Photograph;
 	photoIndex: number;
 	locale: Locale;
 	collectionSlug: string;
 	photoSlug: string;
 };
-const collectionTitle = entry.data.title;
 const title = photo.title?.[locale];
 const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1}`;
 ---
@@ -35,17 +34,6 @@ const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1
 				loading="lazy"
 			/>
 		</div>
-		<div class="mt-2 flex min-w-0 items-baseline justify-between gap-2">
-			{title && <span class="text-global-text truncate text-xs font-medium">{title}</span>}
-			<span
-				class:list={[
-					"text-muted truncate text-[0.68rem] font-medium tracking-wide",
-					{ "ms-auto": title },
-				]}
-				dir="ltr"
-			>
-				{collectionTitle}
-			</span>
-		</div>
+		{title && <h2 class="text-global-text mt-2 truncate text-xs font-medium">{title}</h2>}
 	</a>
 </article>

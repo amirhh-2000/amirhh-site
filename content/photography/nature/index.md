@@ -8,6 +8,9 @@ draft: false
 tags: []
 photos:
   - src: ./ladybug.jpg
+    alt:
+      fa: کفشدوزکی قرمز روی خاک میان علف‌ها
+      en: A red ladybug on sandy soil among grass
     commercialUse: free
     highRes: paid
     purchase:

@@ -18,8 +18,16 @@ const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
 <link href="/manifest.webmanifest" rel="manifest" />
 <link href={canonicalURL} rel="canonical" />
-{alternateHref && <link href={new URL(alternateHref, Astro.site)} hreflang={locale === "fa" ? "en" : "fa"} rel="alternate" />}
-<link href={new URL(`/${locale}/`, Astro.site)} hreflang={locale} rel="alternate" />
+{
+	alternateHref && (
+		<link
+			href={new URL(alternateHref, Astro.site)}
+			hreflang={locale === "fa" ? "en" : "fa"}
+			rel="alternate"
+		/>
+	)
+}
+<link href={canonicalURL} hreflang={locale} rel="alternate" />
 <meta content={description} name="description" />
 <meta content={siteConfig.author} name="author" />
 {noIndex && <meta content="noindex,nofollow" name="robots" />}
@@ -36,8 +44,16 @@ const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
 <meta content={socialImageURL} name="twitter:image" />
 {articleDate && <meta content={articleDate} property="article:published_time" />}
 <link href="/sitemap-index.xml" rel="sitemap" />
-<link href={`/${locale}/rss.xml`} title={`${site.title} RSS`} rel="alternate" type="application/rss+xml" />
+<link
+	href={`/${locale}/rss.xml`}
+	title={`${site.title} RSS`}
+	rel="alternate"
+	type="application/rss+xml"
+/>
 <link crossorigin="anonymous" href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
-<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+	rel="stylesheet"
+/>
 <meta content={Astro.generator} name="generator" />

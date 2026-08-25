@@ -24,4 +24,5 @@ photos:
     #   priceToman: 2500000
     #   iranPaymentUrl: "https://example.ir/payment-link"
     #   nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
+    #   telegramUrl: "https://t.me/YOUR_USERNAME"
 ---

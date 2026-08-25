@@ -56,11 +56,19 @@ const hasPurchase = Boolean(
 >
 	<article>
 		<header class="mb-6">
-			<a class="cactus-link text-sm" href={`/${locale}/photography/`}>
-				{ui[locale].back}: {ui[locale].photography}
+			<a class="cactus-link text-sm" href={`/${locale}/photography/${collectionSlug}/`}>
+				{ui[locale].back}: {collectionTitle}
 			</a>
 			<p class="text-muted mt-5 text-xs font-medium tracking-wide" dir="ltr">{collectionTitle}</p>
-			{title && <h1 class="text-accent-2 mt-5 text-3xl font-semibold sm:text-4xl">{title}</h1>}
+			{
+				title ? (
+					<h1 class="text-accent-2 mt-5 text-3xl font-semibold sm:text-4xl">{title}</h1>
+				) : (
+					<h1 class="sr-only">
+						{collectionTitle} {photoIndex + 1}
+					</h1>
+				)
+			}
 		</header>
 		<figure>
 			<Image

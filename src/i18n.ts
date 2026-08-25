@@ -38,7 +38,9 @@ export const ui = {
 		toman: "تومان",
 		payIran: "پرداخت ریالی",
 		payCrypto: "پرداخت رمزارزی",
-		paymentDeliveryNote: "تحویل فایل پس از تأیید پرداخت با هماهنگی انجام می‌شود.",
+		contactTelegram: "هماهنگی تحویل در تلگرام",
+		paymentDeliveryNote:
+			"پس از پرداخت، رسید یا شناسهٔ تراکنش را نگه دارید. فایل از طریق راه تماس ثبت‌شده در درگاه تحویل می‌شود.",
 		rss: "خوراک RSS",
 		back: "بازگشت",
 		categories: {
@@ -83,7 +85,9 @@ export const ui = {
 		toman: "toman",
 		payIran: "Pay in Iran",
 		payCrypto: "Pay with crypto",
-		paymentDeliveryNote: "The file is delivered by arrangement after payment is confirmed.",
+		contactTelegram: "Arrange delivery on Telegram",
+		paymentDeliveryNote:
+			"Keep your receipt or transaction ID. The file is delivered through the contact method entered at checkout.",
 		rss: "RSS feed",
 		back: "Back",
 		categories: {

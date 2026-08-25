@@ -1,6 +1,6 @@
 ---
-import PhotographyCard from "@/components/content/PhotographyCard.astro";
-import { getPhotography, photographySlug, photoSlug } from "@/data/content";
+import PhotographyCollectionCard from "@/components/content/PhotographyCollectionCard.astro";
+import { getPhotography, photographySlug } from "@/data/content";
 import { isLocale, locales, otherLocale, ui } from "@/i18n";
 import Base from "@/layouts/Base.astro";
 export function getStaticPaths() {
@@ -10,15 +10,6 @@ const value = Astro.params.locale;
 if (!isLocale(value)) return Astro.redirect("/fa/photography/");
 const locale = value;
 const entries = await getPhotography();
-const photographs = entries.flatMap((entry) =>
-	entry.data.photos.map((photo, index) => ({
-		entry,
-		photo,
-		index,
-		collectionSlug: photographySlug(entry.id),
-		photoSlug: photoSlug(photo.slug, index),
-	})),
-);
 ---
 
 <Base
@@ -32,16 +23,13 @@ const photographs = entries.flatMap((entry) =>
 >
 	<header class="mb-10"><h1 class="title">{ui[locale].photography}</h1></header>
 	{
-		photographs.length > 0 ? (
+		entries.length > 0 ? (
 			<div class="grid grid-cols-3 gap-x-2 gap-y-8 sm:gap-x-5 sm:gap-y-10">
-				{photographs.map(({ entry, photo, index, collectionSlug, photoSlug }) => (
-					<PhotographyCard
+				{entries.map((entry) => (
+					<PhotographyCollectionCard
 						entry={entry}
-						photo={photo}
-						photoIndex={index}
 						locale={locale}
-						collectionSlug={collectionSlug}
-						photoSlug={photoSlug}
+						slug={photographySlug(entry.id)}
 					/>
 				))}
 			</div>

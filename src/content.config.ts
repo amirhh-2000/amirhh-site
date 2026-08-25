@@ -77,6 +77,7 @@ const photography = defineCollection({
 								priceToman: z.number().int().positive().optional(),
 								iranPaymentUrl: z.url().optional(),
 								nowPaymentsUrl: z.url().optional(),
+								telegramUrl: z.url().optional(),
 							})
 							.optional(),
 					}),
