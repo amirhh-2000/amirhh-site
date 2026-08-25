@@ -1,9 +1,12 @@
 ---
-title: Nature
+title:
+  fa: طبیعت
+  en: Nature
 description:
   fa: لحظات زیبای طبیعت
   en: Beautiful moments of nature
 publishedAt: 2026-08-24
+icon: ./icon.png
 draft: false
 tags: []
 photos:

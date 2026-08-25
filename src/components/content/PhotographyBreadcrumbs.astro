@@ -1,0 +1,41 @@
+---
+import { ui } from "@/i18n";
+import type { Locale } from "@/types";
+
+interface BreadcrumbItem {
+	label: string;
+	href?: string;
+}
+
+const { locale, items } = Astro.props as {
+	locale: Locale;
+	items: BreadcrumbItem[];
+};
+---
+
+<nav aria-label={ui[locale].breadcrumb} class="mb-6">
+	<ol class="text-muted flex flex-wrap items-center gap-2 text-xs">
+		{
+			items.map((item, index) => (
+				<>
+					<li>
+						{item.href ? (
+							<a class="cactus-link" href={item.href}>
+								{item.label}
+							</a>
+						) : (
+							<span aria-current="page" class="text-global-text">
+								{item.label}
+							</span>
+						)}
+					</li>
+					{index < items.length - 1 && (
+						<li aria-hidden="true" class="text-muted/60">
+							/
+						</li>
+					)}
+				</>
+			))
+		}
+	</ol>
+</nav>

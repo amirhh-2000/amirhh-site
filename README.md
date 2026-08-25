@@ -4,6 +4,7 @@
 
 راهنمای عملی و نمونهٔ کامل Frontmatter در [`docs/CONTENT.md`](docs/CONTENT.md) قرار دارد.
 راهنمای تک‌منبعی انتشار، تنظیم قیمت در درگاه و فروش عکس در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) است.
+پرامپت ثابت ساخت آیکن‌های کالکشن در [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) نگهداری می‌شود.
 
 ## Development
 

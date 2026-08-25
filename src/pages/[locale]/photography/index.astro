@@ -21,10 +21,16 @@ const entries = await getPhotography();
 		alternateHref: `/${otherLocale(locale)}/photography/`,
 	}}
 >
-	<header class="mb-10"><h1 class="title">{ui[locale].photography}</h1></header>
+	<header class="mb-10">
+		<h1 class="title">{ui[locale].photography}</h1>
+		<p class="text-muted mt-3">{ui[locale].collectionHint}</p>
+	</header>
 	{
 		entries.length > 0 ? (
-			<div class="grid grid-cols-3 gap-x-2 gap-y-8 sm:gap-x-5 sm:gap-y-10">
+			<section
+				aria-label={ui[locale].collections}
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6"
+			>
 				{entries.map((entry) => (
 					<PhotographyCollectionCard
 						entry={entry}
@@ -32,7 +38,7 @@ const entries = await getPhotography();
 						slug={photographySlug(entry.id)}
 					/>
 				))}
-			</div>
+			</section>
 		) : (
 			<p class="text-muted">{ui[locale].noItems}</p>
 		)

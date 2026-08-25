@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { type CollectionEntry, getCollection } from "astro:content";
+import PhotographyBreadcrumbs from "@/components/content/PhotographyBreadcrumbs.astro";
 import PhotographyPurchase from "@/components/content/PhotographyPurchase.astro";
 import { photographySlug, photoSlug } from "@/data/content";
 import { locales, otherLocale, ui } from "@/i18n";
@@ -34,10 +35,21 @@ const collectionSlug = photographySlug(entry.id);
 const photo = entry.data.photos.at(photoIndex);
 if (!photo) throw new Error(`Photo ${photoIndex} does not exist in ${entry.id}.`);
 const currentPhotoSlug = photoSlug(photo.slug, photoIndex);
-const collectionTitle = entry.data.title;
+const collectionTitle = entry.data.title[locale];
 const title = photo.title?.[locale];
 const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1}`;
 const caption = photo.caption?.[locale];
+const positionLabel = ui[locale].photoPosition(photoIndex + 1, entry.data.photos.length);
+const previousIndex = photoIndex > 0 ? photoIndex - 1 : undefined;
+const nextIndex = photoIndex < entry.data.photos.length - 1 ? photoIndex + 1 : undefined;
+const previousUrl =
+	previousIndex !== undefined
+		? `/${locale}/photography/${collectionSlug}/${photoSlug(entry.data.photos[previousIndex]?.slug, previousIndex)}/`
+		: undefined;
+const nextUrl =
+	nextIndex !== undefined
+		? `/${locale}/photography/${collectionSlug}/${photoSlug(entry.data.photos[nextIndex]?.slug, nextIndex)}/`
+		: undefined;
 const purchase = photo.purchase;
 const hasPurchase = Boolean(
 	purchase && (locale === "fa" ? purchase.iranPaymentUrl : purchase.nowPaymentsUrl),
@@ -56,10 +68,18 @@ const hasPurchase = Boolean(
 >
 	<article>
 		<header class="mb-6">
-			<a class="cactus-link text-sm" href={`/${locale}/photography/${collectionSlug}/`}>
-				{ui[locale].back}: {collectionTitle}
-			</a>
-			<p class="text-muted mt-5 text-xs font-medium tracking-wide" dir="ltr">{collectionTitle}</p>
+			<PhotographyBreadcrumbs
+				locale={locale}
+				items={[
+					{ label: ui[locale].photography, href: `/${locale}/photography/` },
+					{
+						label: collectionTitle,
+						href: `/${locale}/photography/${collectionSlug}/`,
+					},
+					{ label: title ?? positionLabel },
+				]}
+			/>
+			<p class="text-muted text-xs font-medium tracking-wide">{positionLabel}</p>
 			{
 				title ? (
 					<h1 class="text-accent-2 mt-5 text-3xl font-semibold sm:text-4xl">{title}</h1>
@@ -101,5 +121,26 @@ const hasPurchase = Boolean(
 				{hasPurchase && <PhotographyPurchase locale={locale} {...purchase} />}
 			</figcaption>
 		</figure>
+		{
+			(previousUrl || nextUrl) && (
+				<nav
+					aria-label={
+						locale === "fa" ? "پیمایش میان عکس‌های کالکشن" : "Collection photograph navigation"
+					}
+					class="border-muted/30 mt-8 grid grid-cols-2 border-t pt-5 text-sm"
+				>
+					{previousUrl && (
+						<a class="cactus-link justify-self-start" href={previousUrl}>
+							{ui[locale].previousPhoto}
+						</a>
+					)}
+					{nextUrl && (
+						<a class="cactus-link col-start-2 justify-self-end" href={nextUrl}>
+							{ui[locale].nextPhoto}
+						</a>
+					)}
+				</nav>
+			)
+		}
 	</article>
 </Base>

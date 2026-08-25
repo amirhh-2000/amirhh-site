@@ -1,9 +1,12 @@
 ---
-title: "Collection title"
+title:
+  fa: "نام فارسی کالکشن"
+  en: "English collection name"
 description:
   fa: "توضیح کوتاه مجموعه"
   en: "A short collection description"
 publishedAt: 2026-01-01
+# icon: ./icon.png
 draft: true
 tags: []
 photos:
