@@ -2,8 +2,8 @@
 
 برای اینکه آیکن‌های جدید واقعاً یک خانوادهٔ بصری باقی بمانند، این دو تصویر را همیشه همراه پرامپت بارگذاری کن:
 
-1. [آیکن طبیعت](../content/photography/nature/icon.png) به‌عنوان مرجع اصلی سبک و نامتقارن‌بودن
-2. [آیکن اماکن دیدنی](../content/_templates/photography-icons/places-to-visit.png) به‌عنوان نمونهٔ دوم همان سیستم
+1. [آیکن اماکن دیدنی](../content/photography/places-to-visit/icon.png) به‌عنوان مرجع اصلی جرم بصری، توازن و نامتقارن‌بودن کنترل‌شده
+2. [آیکن طبیعت](../content/photography/nature/icon-v3.png) به‌عنوان نمونهٔ دوم همان سیستم
 
 فقط مقدار `{{SUBJECT}}` را تغییر بده. برای نمونه:
 
@@ -79,4 +79,4 @@ Constraints:
 - preserve the visual grammar of the references while inventing a new subject-specific silhouette
 ```
 
-پس از تولید، مطمئن شو فایل واقعاً کانال Alpha دارد؛ نمایش شطرنجی نباید داخل خود PNG ذخیره شده باشد. فایل تأییدشده را با نام `icon.png` کنار `index.md` کالکشن قرار بده.
+پس از تولید، مطمئن شو فایل واقعاً کانال Alpha دارد؛ نمایش شطرنجی نباید داخل خود PNG ذخیره شده باشد. فایل تأییدشده را کنار `index.md` کالکشن قرار بده و نام دقیقش را در فیلد `icon` ثبت کن.

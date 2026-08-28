@@ -6,11 +6,13 @@ description:
   fa: لحظات زیبای طبیعت
   en: Beautiful moments of nature
 publishedAt: 2026-08-24
-icon: ./icon.png
+icon: ./icon-v3.png
+iconScale: 0.72
 draft: false
 tags: []
 photos:
-  - src: ./ladybug.jpg
+  - src: ./images/ladybug.jpg
+    process: photograph
     alt:
       fa: کفشدوزکی قرمز روی خاک میان علف‌ها
       en: A red ladybug on sandy soil among grass

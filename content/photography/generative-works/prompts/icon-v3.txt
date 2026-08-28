@@ -1,0 +1,13 @@
+Use case: logo-brand
+Asset type: square collection icon for the “Generative Works” card on a personal website
+Input images:
+- Image 1: strict reference for scale, isometric angle, visual weight, padding, controlled asymmetry, and polished facets
+- Image 2: strict reference for the website’s geometric brand language and three-color face logic
+
+Primary request: invent a beautiful abstract “idea in bloom” symbol. Use one continuous thick isometric ribbon that rises from a compact base, folds around a small diamond-shaped negative space, then opens into three unequal petal/spark arms. It should feel like imagination becoming form: part impossible object, part flower, part creative spark, without literally depicting any of them.
+
+Composition/framing: one centered compact mark; same occupied area and generous padding as Image 1; balanced overall silhouette with a gentle diagonal rhythm. The three upper arms must differ subtly in height and reach, creating deliberate controlled irregularity. Keep the lower mass stable and the upper form airy.
+Style/medium: elegant minimal isometric geometric sculpture, crisp large facets, restrained polished depth, visually memorable at thumbnail size.
+Color palette: pale lime/mint illuminated faces, turquoise-green primary faces, dusty rose upward-facing planes, matching the references.
+Constraints: one continuous connected form; genuine transparent alpha background; no text; no letters; no frame; no shadow; no separate cube; no particles; no checkerboard; no black or white background; no watermark.
+Avoid: architecture, gate, castle, chair, literal bird, literal flower illustration, ordinary spiral, perfect symmetry, blocky letterform, many disconnected pieces, starburst cliché, chaotic geometry.

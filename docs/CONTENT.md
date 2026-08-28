@@ -71,7 +71,7 @@ technical | personal | spiritual | learning
 
 ## پروژه
 
-فایل: `content/projects/fa/project-slug/index.md`
+ساده‌ترین حالت: `content/projects/fa/project-slug.md`
 
 ```yaml
 ---
@@ -92,6 +92,9 @@ draft: true
 ---
 ```
 
+- برای یک پروژهٔ فارسی فقط همین یک فایل Markdown کافی است؛ متن بعد از Frontmatter محتوای صفحهٔ پروژه می‌شود.
+- برای نسخهٔ انگلیسی یک فایل جدا در `content/projects/en/` بساز و در هر دو فایل `translationKey` یکسان بگذار.
+- اگر پروژه Cover یا فایل جانبی دارد، به‌جای فایل تکی از ساختار `content/projects/fa/project-slug/index.md` استفاده کن و تصویر را کنار آن بگذار.
 - `featured: true` پروژه را در خانه نشان می‌دهد.
 - `website` و `repository` باید URL کامل باشند.
 - وضعیت معتبر: `active`, `experimental`, `maintained`, `archived`.
@@ -104,7 +107,10 @@ draft: true
 ```text
 content/photography/yazd-at-night/
 ├── index.md
-└── photo.jpg
+├── icon.png
+└── images/
+    ├── old-alley.jpg
+    └── blue-door.jpg
 ```
 
 نمونهٔ مینیمال:
@@ -122,17 +128,24 @@ icon: ./icon.png
 draft: true
 tags: [yazd, night]
 photos:
-  - src: ./photo.jpg
+  - src: ./images/old-alley.jpg
+    process: photograph
 ---
 ```
 
-برای هر عکس فقط `src` لازم است. عنوان، Alt، Caption، Slug، مجوزها و پرداخت را فقط وقتی مقدار واقعی داری اضافه کن. عنوان و توضیح کالکشن دوزبانه‌اند و `icon` تصویر شفاف کارت کالکشن است. صفحهٔ «عکس‌ها» ابتدا کالکشن‌ها را نشان می‌دهد؛ صفحهٔ هر کالکشن Grid عکس‌های همان مجموعه است و هر عکس صفحهٔ مستقل خودش را دارد. Breadcrumb نیز مسیر این سه سطح را روشن می‌کند.
+برای هر عکس فقط `src` لازم است، اما `process` را نیز برای شفافیت منشأ تصویر ثبت کن. مقدارهای معتبر آن `photograph`، `ai-assisted`، `ai-derived` و `ai-generated` هستند. عنوان، Alt، Caption، Slug، مجوزها و پرداخت را فقط وقتی مقدار واقعی داری اضافه کن. عنوان و توضیح کالکشن دوزبانه‌اند و `icon` تصویر شفاف کارت کالکشن است. صفحهٔ «عکس‌ها» ابتدا کالکشن‌ها را نشان می‌دهد؛ صفحهٔ هر کالکشن Grid عکس‌های همان مجموعه است و هر عکس صفحهٔ مستقل خودش را دارد. Breadcrumb نیز مسیر این سه سطح را روشن می‌کند.
+
+برای عکس دوم و بعدی، فایل را در همان پوشهٔ `images/` بگذار و فقط آیتم تازه‌ای به انتهای `photos` اضافه کن. هر کالکشن یک `index.md` دارد؛ هر عکس به‌صورت خودکار صفحهٔ مستقل خودش را می‌گیرد.
+
+هر نسبت تصویری پذیرفته می‌شود. Grid برای نظم ظاهری Preview مربعی می‌سازد و صفحهٔ عکس نسبت واقعی را با `object-contain` و ارتفاع محدود نگه می‌دارد. ۲۴۰۰ پیکسل فقط هدف پیشنهادی برای Preview باکیفیت است، نه الزام؛ سایت از فایل کوچک‌تر نسخهٔ بزرگ‌تر تولید نمی‌کند. کالکشن Draft می‌تواند با `photos: []` برای آینده آماده بماند، اما کالکشن منتشرشده باید حداقل یک عکس داشته باشد.
+
+برای عکس یک مکان، کالکشن را بر اساس موضوع انتخاب کن: پولیش سبک هوش مصنوعی `ai-assisted` و بازتولید یا کارتونی‌سازی مبتنی بر عکس خودت `ai-derived` است و تا وقتی مکان موضوع اصلی و قابل‌شناسایی است، هر دو داخل «اماکن دیدنی» می‌مانند. وقتی تصویر عمدتاً تخیلی شده یا از ابتدا بدون عکس مبنا ساخته شده است، آن را در «آثار مولد» قرار بده.
 
 برای نمایش دکمهٔ NOWPayments فقط در نسخهٔ انگلیسی، بدون قیمت و بدون لینک ریالی:
 
 ```yaml
 photos:
-  - src: ./photo.jpg
+  - src: ./images/photo.jpg
     purchase:
       nowPaymentsUrl: "https://nowpayments.io/payment/?iid=YOUR_ID&source=button"
 ```
@@ -165,4 +178,4 @@ pnpm check
 git status
 ```
 
-در `git status` نباید `.obsidian`, فایل RAW، پوشهٔ Originals یا تصویر Master دیده شود.
+در `git status` دیده‌شدن تنظیمات مشترک `content/.obsidian/` طبیعی است، اما Workspace محلی، فایل RAW، پوشهٔ Originals، تصویر Master یا اطلاعات حساس افزونه‌ها نباید Stage شوند.

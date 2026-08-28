@@ -4,8 +4,6 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-/* tailwind to ignore satori generated og-image */
-@source not "../pages/og-image";
 /* config for tailwindcss-typography plugin */
 @config "../../tailwind.config.ts";
 
@@ -99,12 +97,28 @@
 	}
 
 	body {
-		font-family: "JetBrains Mono", Consolas, ui-monospace, monospace;
+		font-family: "Recursive", Consolas, ui-monospace, monospace;
+		font-variation-settings:
+			"MONO" 1,
+			"CASL" 0,
+			"slnt" 0,
+			"CRSV" 0;
+		font-weight: 400;
 		line-height: 1.85;
 	}
 
 	html[lang="fa"] body {
 		font-family: "Estedad", Tahoma, sans-serif;
+		font-variation-settings: normal;
+	}
+
+	html[lang="en"] :where(nav, button, summary, label, input, select, textarea, [role="button"]),
+	html[lang="en"] :where(.font-medium, .font-semibold):not(:where(h1, h2, h3, h4, h5, h6)) {
+		font-weight: 500;
+	}
+
+	html[lang="en"] :where(h1, h2, h3, h4, h5, h6, strong, b) {
+		font-weight: 600;
 	}
 
 	code,
@@ -112,7 +126,12 @@
 	pre,
 	samp {
 		direction: ltr;
-		font-family: "JetBrains Mono", ui-monospace, monospace;
+		font-family: "Recursive", ui-monospace, monospace;
+		font-variation-settings:
+			"MONO" 1,
+			"CASL" 0,
+			"slnt" 0,
+			"CRSV" 0;
 		text-align: left;
 	}
 

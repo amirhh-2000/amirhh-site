@@ -1,0 +1,11 @@
+Use case: stylized editorial illustration for a personal photography and visual-art website.
+
+Create one original, finished portrait artwork in a 2:3 vertical composition. The central subject is an elegant Persian nightingale perched among abundant flowers. Reimagine the bird and foliage through the visual language of traditional Iranian minakari (Persian enamelwork): deep cobalt and lapis-blue enamel fields, turquoise details, fine ivory linework, restrained coral-pink and warm gold accents, intricate Persian floral and arabesque motifs. The flowers should feel lush, varied, organic, and gently asymmetric rather than arranged in a rigid geometric pattern. The bird should remain expressive and recognizable, with refined decorative feather patterns inspired by Iranian craftsmanship.
+
+Mood: poetic, intimate, luminous, culturally grounded, slightly dreamlike.
+Composition: full-frame artwork, strong but graceful focal point, naturally irregular floral framing, enough visual breathing room, no border.
+Surface: rich glazed enamel impression with subtle handcrafted texture and fine detailing, not photorealistic, not 3D.
+Palette: cobalt, lapis, turquoise, ivory, muted coral, dusty rose, and small warm-gold accents.
+Avoid: text, Persian calligraphy, letters, logos, signatures, watermarks, mockup frames, checkerboard backgrounds, overly symmetrical mandala layouts, generic Western botanical illustration, copied contemporary artist style.
+
+The result must look polished enough to be displayed as the first artwork in a curated personal collection called “Generative Works”.

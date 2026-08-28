@@ -1,0 +1,13 @@
+Use case: logo-brand
+Asset type: square collection icon for the “Nature” card on a personal website
+Input images:
+- Image 1: strict reference for scale, isometric viewing angle, visual weight, padding, controlled asymmetry, and polished facet treatment
+- Image 2: strict reference for the website’s geometric brand language and three-color face logic
+
+Primary request: create one unmistakable MOUNTAIN as the sole nature element: a single compact faceted peak with one lower asymmetrical shoulder/ridge. The mountain must be formed from broad sloping triangular and quadrilateral planes, not stacked towers or vertical architectural walls. Give it a strong low base, a clear off-center summit, and one subtle notch or fold in the ridge.
+
+Composition/framing: one centered compact icon, same occupied area and generous padding as Image 1. Stable triangular silhouette with a gentle diagonal rhythm. Balanced overall, but the summit is slightly offset and the two slopes have unequal lengths.
+Style/medium: minimal polished isometric geometric sculpture, crisp large facets, restrained depth, readable at thumbnail size.
+Color palette: pale lime/mint illuminated slope, turquoise-green primary slope, dusty rose upward/ridge plane, matching the references.
+Constraints: genuine transparent alpha background; no text; no frame; no shadow; no scenery; no ground plane; no sun; no cloud; no tree; no snow texture; no checkerboard; no black or white background; no watermark.
+Avoid: castle, gate, building, staircase, columns, vertical towers, pyramid symmetry, perfect triangle, realistic landscape, excessive detail, multiple disconnected mountains.

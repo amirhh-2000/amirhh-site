@@ -2,9 +2,7 @@
 
 راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و مجموعه‌های عکاسی از Markdown و YAML Frontmatter خوانده می‌شوند.
 
-راهنمای عملی و نمونهٔ کامل Frontmatter در [`docs/CONTENT.md`](docs/CONTENT.md) قرار دارد.
-راهنمای تک‌منبعی انتشار، تنظیم قیمت در درگاه و فروش عکس در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) است.
-پرامپت ثابت ساخت آیکن‌های کالکشن در [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) نگهداری می‌شود.
+مرجع اصلی ساخت نوشته، پروژه، کالکشن، افزودن عکس، Obsidian و پرامپت آیکن‌ها در [`docs/HANDBOOK.md`](docs/HANDBOOK.md) است. نمونه‌های تخصصی‌تر در [`docs/CONTENT.md`](docs/CONTENT.md)، [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) و [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) نگهداری می‌شوند.
 
 ## Development
 
@@ -37,7 +35,7 @@ pnpm preview
 C:\Users\Amir Hossein\Documents\ChatGPT\Personal website\amirhh-site\content
 ```
 
-هیچ افزونهٔ اختصاصی لازم نیست. از Markdown استاندارد، لینک‌های `[text](url)` و تصاویر `![alt](./image.jpg)` استفاده کن. پوشهٔ محلی `.obsidian/` عمداً در Git نادیده گرفته می‌شود تا وضعیت Workspace و تنظیمات وابسته به دستگاه وارد Commitها نشوند.
+از Markdown استاندارد، لینک‌های `[text](url)` و تصاویر `![alt](./image.jpg)` استفاده کن. تنظیمات `content/.obsidian/` در Git ثبت می‌شوند تا Vault روی دستگاه‌های مختلف یکسان باشد؛ فقط فایل‌های Workspace و Cache که وابسته به دستگاه‌اند Ignore می‌مانند.
 
 قالب‌ها در `content/_templates/` قرار دارند. در Obsidian افزونهٔ داخلی **Templates** را فعال کن و Template folder را `_templates` بگذار.
 
@@ -51,7 +49,10 @@ content/
 ├── photography/
 │   └── <collection-slug>/
 │       ├── index.md
-│       └── photo.jpg
+│       ├── icon.png
+│       └── images/
+│           ├── 001.jpg
+│           └── 002.jpg
 └── pages/{fa,en}/
 ```
 
@@ -83,7 +84,7 @@ content/writing/fa/my-article/
 
 ## Projects
 
-پروژه‌ها مستقل از نوشته‌ها و کاملاً Content-driven هستند. فایل را در `content/projects/fa/` یا `content/projects/en/` بساز. `featured: true` پروژه را در بخش پروژه‌های منتخب خانه نشان می‌دهد. وضعیت‌های معتبر:
+پروژه‌ها مستقل از نوشته‌ها و کاملاً Content-driven هستند. برای هر زبان یک فایل Markdown در `content/projects/fa/` یا `content/projects/en/` کافی است؛ مثلاً `content/projects/fa/my-project.md`. اگر Cover یا فایل جانبی داری، ساختار پوشه‌ای `my-project/index.md` خواناتر است. برای پروژهٔ دوزبانه دو فایل با `translationKey` یکسان بساز. `featured: true` پروژه را در بخش پروژه‌های منتخب خانه نشان می‌دهد. وضعیت‌های معتبر:
 
 ```text
 active | experimental | maintained | archived
@@ -99,7 +100,7 @@ active | experimental | maintained | archived
 content/photography/<collection-slug>/
 ```
 
-هر مجموعه فقط یک فایل و یک نام انگلیسی دارد. صفحهٔ Photography ابتدا کالکشن‌ها را به‌صورت Grid نشان می‌دهد؛ هر کالکشن Grid عکس‌های خودش را دارد و هر عکس به صفحهٔ مستقل خرید می‌رود. Astro از تصاویر Preview اندازه‌های Responsive تولید می‌کند و تصاویر فهرست Lazy-load می‌شوند.
+هر مجموعه فقط یک فایل متادیتا با نام `index.md` و یک نام پوشهٔ انگلیسی دارد، اما پوشهٔ `images/` آن می‌تواند هر تعداد عکس داشته باشد. برای افزودن عکس، فایل را داخل `images/` بگذار و یک آیتم به آرایهٔ `photos` در `index.md` اضافه کن. صفحهٔ Photography ابتدا کالکشن‌ها را به‌صورت Grid نشان می‌دهد؛ هر کالکشن Grid عکس‌های خودش را دارد و هر عکس صفحهٔ مستقل خودش را می‌گیرد. Astro از تصاویر Preview اندازه‌های Responsive تولید می‌کند و تصاویر فهرست Lazy-load می‌شوند.
 
 این دو مقدار برای هر عکس اختیاری‌اند و فقط در صورت ثبت‌شدن نمایش داده می‌شوند:
 
@@ -139,7 +140,7 @@ E:\Photography Originals\
 - Commit message: `content: automatic Obsidian sync`
 - Branch: `main`
 
-بعد از تنظیم، یک بار از Command Palette فرمان **Obsidian Git: Commit-and-sync** را اجرا کن. از آن پس افزونه تغییرها را Stage، Commit، Pull و Push می‌کند و نیازی نیست برای هر تغییر پیام Commit بنویسی. پوشهٔ `.obsidian/` همچنان محلی و Ignore می‌ماند تا تنظیمات دستگاه وارد Repository نشود.
+بعد از تنظیم، یک بار از Command Palette فرمان **Obsidian Git: Commit-and-sync** را اجرا کن. از آن پس افزونه تغییرها را Stage، Commit، Pull و Push می‌کند و نیازی نیست برای هر تغییر پیام Commit بنویسی. تنظیمات مشترک Vault نیز همراه Repository همگام می‌شوند؛ چیدمان Workspace هر دستگاه محلی می‌ماند.
 
 > `draft: true` محتوا را از سایت، RSS، Sitemap و Search پنهان می‌کند، اما فایل Markdown داخل یک Repository عمومی همچنان در GitHub قابل دیدن است. هیچ یادداشت محرمانه یا پیش‌نویس خصوصی را در این Repository عمومی ذخیره نکن.
 
@@ -153,7 +154,7 @@ git commit -m "Add new writing"
 git push origin main
 ```
 
-برای تغییرات کد یا مستندات به‌جای `git add content` از `git add .` استفاده کن. قبل از Commit مطمئن شو هیچ Original، فایل RAW یا وضعیت محلی Obsidian Stage نشده است.
+برای تغییرات کد یا مستندات به‌جای `git add content` از `git add .` استفاده کن. قبل از Commit مطمئن شو هیچ Original، فایل RAW، Workspace محلی یا اطلاعات حساس افزونه‌ها Stage نشده است.
 
 مخزن اصلی Astro Cactus با نام `upstream` نگه داشته می‌شود و مخزن سایت با نام `origin` استفاده می‌شود.
 

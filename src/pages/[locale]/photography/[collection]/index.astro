@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 		.filter((entry) => !entry.data.draft)
 		.flatMap((entry) =>
 			locales.map((locale) => ({
-				params: { locale, slug: photographySlug(entry.id) },
+				params: { locale, collection: photographySlug(entry.id) },
 				props: { entry, locale },
 			})),
 		);

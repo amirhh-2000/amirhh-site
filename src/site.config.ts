@@ -37,7 +37,7 @@ export const menuLinks: Record<Locale, { path: string; title: string }[]> = {
 export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
 	styleOverrides: {
 		borderRadius: "4px",
-		codeFontFamily: '"JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace',
+		codeFontFamily: '"Recursive", ui-monospace, SFMono-Regular, Consolas, monospace',
 		codeFontSize: "0.875rem",
 		codeLineHeight: "1.7142857rem",
 		codePaddingInline: "1rem",

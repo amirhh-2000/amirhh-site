@@ -1,11 +1,9 @@
-import fs from "node:fs";
 import { satteri, satteriHeadingIdsPlugin } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode from "astro-expressive-code";
-import icon from "astro-icon";
 import robotsTxt from "astro-robots-txt";
 import webmanifest from "astro-webmanifest";
 import { satteriAdmonitionsPlugin } from "./src/plugins/admonitions";
@@ -28,7 +26,6 @@ export default defineConfig({
 	},
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
-		icon(),
 		sitemap(),
 		mdx(),
 		robotsTxt(),
@@ -66,18 +63,5 @@ export default defineConfig({
 			],
 		}),
 	},
-	vite: { plugins: [tailwind(), rawFonts([".ttf", ".woff", ".woff2"])] },
+	vite: { plugins: [tailwind()] },
 });
-
-function rawFonts(ext: string[]) {
-	return {
-		name: "vite-plugin-raw-fonts",
-		// @ts-expect-error Astro's Vite hook is intentionally untyped here.
-		transform(_, id) {
-			if (ext.some((item) => id.endsWith(item))) {
-				const buffer = fs.readFileSync(id);
-				return { code: `export default ${JSON.stringify(buffer)}`, map: null, moduleType: "js" };
-			}
-		},
-	};
-}

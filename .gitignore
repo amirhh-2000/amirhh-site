@@ -24,9 +24,12 @@ pnpm-debug.log*
 .cache
 .astro
 
-# Obsidian vault state is local to each device
-.obsidian/
-content/.obsidian/
+# Obsidian settings for the content vault are versioned across devices.
+# Only device-specific workspace layouts stay local.
+/.obsidian/
+/content/.obsidian/workspace.json
+/content/.obsidian/workspace-mobile.json
+/content/.obsidian/cache/
 
 # Private photography masters must never enter the site repository
 /Photography Originals/

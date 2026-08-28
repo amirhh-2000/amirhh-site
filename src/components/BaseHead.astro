@@ -16,7 +16,7 @@ const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <title>{siteTitle}</title>
 <link href="/icon.svg" rel="icon" type="image/svg+xml" />
-<link href="/manifest.webmanifest" rel="manifest" />
+{import.meta.env.PROD && <link href="/manifest.webmanifest" rel="manifest" />}
 <link href={canonicalURL} rel="canonical" />
 {
 	alternateHref && (
@@ -53,7 +53,7 @@ const ogLocale = locale === "fa" ? "fa_IR" : "en_US";
 <link crossorigin="anonymous" href="https://fonts.googleapis.com" rel="preconnect" />
 <link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
 <link
-	href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700&family=Recursive:CASL,CRSV,MONO,slnt,wght@0,0,1,0,400..600&display=swap"
 	rel="stylesheet"
 />
 <meta content={Astro.generator} name="generator" />

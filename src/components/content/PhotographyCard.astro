@@ -16,6 +16,8 @@ const { collectionTitle, photo, photoIndex, locale, collectionSlug, photoSlug } 
 };
 const title = photo.title?.[locale];
 const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1}`;
+const cardWidths = [320, 480, 720].filter((width) => width <= photo.src.width);
+if (cardWidths.length === 0) cardWidths.push(photo.src.width);
 ---
 
 <article class="min-w-0">
@@ -28,7 +30,7 @@ const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1
 			<Image
 				src={photo.src}
 				alt={alt}
-				widths={[320, 480, 720]}
+				widths={cardWidths}
 				sizes="(max-width: 767px) 33vw, 240px"
 				class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.015] group-hover:opacity-90"
 				loading="lazy"

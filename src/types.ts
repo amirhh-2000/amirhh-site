@@ -15,12 +15,6 @@ export interface SiteConfig {
 	url: string;
 }
 
-export interface PaginationLink {
-	srLabel?: string;
-	text?: string;
-	url: string;
-}
-
 export interface SiteMeta {
 	alternateHref?: string | undefined;
 	articleDate?: string | undefined;

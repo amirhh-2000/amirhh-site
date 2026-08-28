@@ -11,6 +11,7 @@ const { entry, locale, slug } = Astro.props as {
 };
 const title = entry.data.title[locale];
 const icon = entry.data.icon;
+const iconScale = entry.data.iconScale;
 ---
 
 <article class="min-w-0">
@@ -24,14 +25,17 @@ const icon = entry.data.icon;
 		>
 			{
 				icon ? (
-					<Image
-						src={icon}
-						alt=""
-						widths={[240, 360, 480]}
-						sizes="(max-width: 639px) 45vw, 240px"
-						class="h-full w-full object-contain transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]"
-						loading="lazy"
-					/>
+					<div class="h-full w-full transition duration-300 group-hover:-translate-y-1 group-hover:scale-[1.02]">
+						<Image
+							src={icon}
+							alt=""
+							widths={[240, 360, 480]}
+							sizes="(max-width: 639px) 45vw, 240px"
+							style={`transform: scale(${iconScale})`}
+							class="h-full w-full object-contain"
+							loading="lazy"
+						/>
+					</div>
 				) : (
 					<span aria-hidden="true" class="text-accent-2 text-4xl font-semibold">
 						{title.charAt(0)}

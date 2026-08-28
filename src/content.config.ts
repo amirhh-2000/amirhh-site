@@ -52,15 +52,16 @@ const project = defineCollection({
 const photography = defineCollection({
 	loader: glob({ base: "./content/photography", pattern: "**/*.{md,mdx}" }),
 	schema: ({ image }) =>
-		z.object({
-			title: localizedText,
-			description: localizedText,
-			icon: image().optional(),
-			publishedAt: date,
-			tags: z.array(z.string()).default([]),
-			draft: z.boolean().default(true),
-			photos: z
-				.array(
+		z
+			.object({
+				title: localizedText,
+				description: localizedText,
+				icon: image().optional(),
+				iconScale: z.number().min(0.5).max(1).default(1),
+				publishedAt: date,
+				tags: z.array(z.string()).default([]),
+				draft: z.boolean().default(true),
+				photos: z.array(
 					z.object({
 						src: image(),
 						slug: z
@@ -71,6 +72,9 @@ const photography = defineCollection({
 						alt: localizedText.optional(),
 						caption: localizedText.optional(),
 						tags: z.array(z.string()).optional(),
+						process: z
+							.enum(["photograph", "ai-assisted", "ai-derived", "ai-generated"])
+							.default("photograph"),
 						commercialUse: z.enum(["free", "paid"]).optional(),
 						highRes: z.enum(["free", "paid"]).optional(),
 						purchase: z
@@ -81,9 +85,17 @@ const photography = defineCollection({
 							})
 							.optional(),
 					}),
-				)
-				.min(1, "A photography collection must include at least one web preview."),
-		}),
+				),
+			})
+			.superRefine((data, context) => {
+				if (!data.draft && data.photos.length === 0) {
+					context.addIssue({
+						code: "custom",
+						path: ["photos"],
+						message: "A published photography collection must include at least one web preview.",
+					});
+				}
+			}),
 });
 
 const page = defineCollection({

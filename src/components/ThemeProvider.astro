@@ -1,13 +1,18 @@
 {/* Inlined to avoid FOUC. This is a parser blocking script. */}
 <script is:inline>
-	const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
+	const darkModePref = window.matchMedia("(prefers-color-scheme: dark)");
+	const storageKey = "theme-preference";
 
-	function getUserPref() {
-		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
-		return storedTheme || (lightModePref.matches ? "light" : "dark");
+	function getStoredTheme() {
+		const storedTheme = localStorage.getItem(storageKey);
+		return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
 	}
 
-	function setTheme(newTheme) {
+	function getSystemTheme() {
+		return darkModePref.matches ? "dark" : "light";
+	}
+
+	function setTheme(newTheme, persist = false) {
 		if (newTheme !== "light" && newTheme !== "dark") {
 			return console.warn(
 				`Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`,
@@ -15,34 +20,31 @@
 		}
 
 		const root = document.documentElement;
-
-		// root already set to newTheme, exit early
-		if (newTheme === root.getAttribute("data-theme")) {
-			return;
-		}
-
 		root.setAttribute("data-theme", newTheme);
+		root.setAttribute("data-theme-source", persist ? "user" : "system");
 
-		if (typeof localStorage !== "undefined") {
-			localStorage.setItem("theme", newTheme);
+		if (persist) {
+			localStorage.setItem(storageKey, newTheme);
 		}
 	}
 
-	// initial setup
-	setTheme(getUserPref());
+	// The former implementation stored the detected system theme as a user choice.
+	// Remove that legacy value once so system mode can work as intended.
+	localStorage.removeItem("theme");
+	setTheme(getStoredTheme() ?? getSystemTheme(), Boolean(getStoredTheme()));
 
-	// listen for pageshow event, browser restored page from bfcache
 	window.addEventListener("pageshow", (e) => {
 		if (e.persisted) {
-			setTheme(getUserPref());
+			const storedTheme = getStoredTheme();
+			setTheme(storedTheme ?? getSystemTheme(), Boolean(storedTheme));
 		}
 	});
 
-	// listen for theme-change custom event, fired in src/components/ThemeToggle.astro
 	document.addEventListener("theme-change", (e) => {
-		setTheme(e.detail.theme);
+		setTheme(e.detail.theme, true);
 	});
 
-	// listen for prefers-color-scheme change.
-	lightModePref.addEventListener("change", (e) => setTheme(e.matches ? "light" : "dark"));
+	darkModePref.addEventListener("change", () => {
+		if (!getStoredTheme()) setTheme(getSystemTheme());
+	});
 </script>
