@@ -4,6 +4,7 @@ import type { Locale, SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
 	url: "https://artsnet.ir",
 	author: "Amir Hossein",
+	contactEmail: "amirbz8778@gmail.com",
 	defaultLocale: "fa",
 	showLogo: true,
 	languages: {

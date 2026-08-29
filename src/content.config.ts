@@ -56,35 +56,76 @@ const photography = defineCollection({
 			.object({
 				title: localizedText,
 				description: localizedText,
-				icon: image().optional(),
-				iconScale: z.number().min(0.5).max(1).default(1),
 				publishedAt: date,
 				tags: z.array(z.string()).default([]),
 				draft: z.boolean().default(true),
 				photos: z.array(
-					z.object({
-						src: image(),
-						slug: z
-							.string()
-							.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and hyphens.")
-							.optional(),
-						title: localizedText.optional(),
-						alt: localizedText.optional(),
-						caption: localizedText.optional(),
-						tags: z.array(z.string()).optional(),
-						process: z
-							.enum(["photograph", "ai-assisted", "ai-derived", "ai-generated"])
-							.default("photograph"),
-						commercialUse: z.enum(["free", "paid"]).optional(),
-						highRes: z.enum(["free", "paid"]).optional(),
-						purchase: z
-							.object({
-								iranPaymentUrl: z.url().optional(),
-								nowPaymentsUrl: z.url().optional(),
-								telegramUrl: z.url().optional(),
-							})
-							.optional(),
-					}),
+					z
+						.object({
+							src: image(),
+							slug: z
+								.string()
+								.regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and hyphens.")
+								.min(1),
+							title: localizedText.optional(),
+							alt: localizedText.optional(),
+							caption: localizedText.optional(),
+							tags: z.array(z.string()).optional(),
+							process: z
+								.enum(["photograph", "ai-assisted", "ai-derived", "ai-generated"])
+								.default("photograph"),
+							access: z
+								.object({
+									type: z.enum(["display-only", "request", "free"]),
+									license: z
+										.object({
+											highResolution: z.enum(["free", "paid"]).default("free"),
+											commercialUse: z.enum(["free", "paid"]).default("free"),
+										})
+										.default({ highResolution: "free", commercialUse: "free" }),
+									file: z
+										.string()
+										.regex(/^\/downloads\//, "Download files must live under /public/downloads.")
+										.optional(),
+									format: requiredText.optional(),
+									dimensions: requiredText.optional(),
+								})
+								.default({
+									type: "display-only",
+									license: { highResolution: "free", commercialUse: "free" },
+								}),
+						})
+						.superRefine((photo, context) => {
+							if (photo.access.type === "free" && !photo.access.file) {
+								context.addIssue({
+									code: "custom",
+									path: ["access", "file"],
+									message: "A free photograph needs a public file under /downloads/.",
+								});
+							}
+							if (
+								photo.access.type === "request" &&
+								photo.access.license.highResolution === "free" &&
+								photo.access.license.commercialUse === "free"
+							) {
+								context.addIssue({
+									code: "custom",
+									path: ["access", "license"],
+									message: "A requested photograph needs at least one paid license condition.",
+								});
+							}
+							if (
+								photo.access.type === "free" &&
+								(photo.access.license.highResolution === "paid" ||
+									photo.access.license.commercialUse === "paid")
+							) {
+								context.addIssue({
+									code: "custom",
+									path: ["access", "license"],
+									message: "A free photograph cannot have a paid license condition.",
+								});
+							}
+						}),
 				),
 			})
 			.superRefine((data, context) => {

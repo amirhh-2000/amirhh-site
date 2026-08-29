@@ -1,8 +1,8 @@
 # amirhh-site
 
-راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و مجموعه‌های عکاسی از Markdown و YAML Frontmatter خوانده می‌شوند.
+راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و عکس‌ها از Markdown و YAML Frontmatter خوانده می‌شوند.
 
-مرجع اصلی ساخت نوشته، پروژه، کالکشن، افزودن عکس، Obsidian و پرامپت آیکن‌ها در [`docs/HANDBOOK.md`](docs/HANDBOOK.md) است. نمونه‌های تخصصی‌تر در [`docs/CONTENT.md`](docs/CONTENT.md)، [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) و [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) نگهداری می‌شوند.
+مرجع اصلی ساخت نوشته، پروژه، دسته و عکس در [`docs/HANDBOOK.md`](docs/HANDBOOK.md) است. نمونه‌های تخصصی‌تر در [`docs/CONTENT.md`](docs/CONTENT.md) و [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) نگهداری می‌شوند؛ [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) آرشیو زبان بصری آیکن‌های قدیمی است.
 
 ## Development
 
@@ -47,9 +47,8 @@ content/
 ├── writing/{fa,en}/
 ├── projects/{fa,en}/
 ├── photography/
-│   └── <collection-slug>/
+│   └── <category-slug>/
 │       ├── index.md
-│       ├── icon.png
 │       └── images/
 │           ├── 001.jpg
 │           └── 002.jpg
@@ -100,19 +99,22 @@ active | experimental | maintained | archived
 content/photography/<collection-slug>/
 ```
 
-هر مجموعه فقط یک فایل متادیتا با نام `index.md` و یک نام پوشهٔ انگلیسی دارد، اما پوشهٔ `images/` آن می‌تواند هر تعداد عکس داشته باشد. برای افزودن عکس، فایل را داخل `images/` بگذار و یک آیتم به آرایهٔ `photos` در `index.md` اضافه کن. صفحهٔ Photography ابتدا کالکشن‌ها را به‌صورت Grid نشان می‌دهد؛ هر کالکشن Grid عکس‌های خودش را دارد و هر عکس صفحهٔ مستقل خودش را می‌گیرد. Astro از تصاویر Preview اندازه‌های Responsive تولید می‌کند و تصاویر فهرست Lazy-load می‌شوند.
+هر دسته فقط یک فایل متادیتا با نام `index.md` و یک نام پوشهٔ انگلیسی دارد، اما پوشهٔ `images/` آن می‌تواند هر تعداد عکس داشته باشد. برای افزودن عکس، فایل را داخل `images/` بگذار و یک آیتم با `slug` یکتا به آرایهٔ `photos` اضافه کن. صفحهٔ Photography همهٔ عکس‌ها را در یک Grid سه‌ستونه نشان می‌دهد؛ نام دسته روی کارت همان Grid را فیلتر می‌کند و کلیک روی عکس مستقیماً صفحهٔ مستقل آن را باز می‌کند.
 
-این دو مقدار برای هر عکس اختیاری‌اند و فقط در صورت ثبت‌شدن نمایش داده می‌شوند:
+روش دسترسی هر عکس با `access.type` مشخص می‌شود:
 
 ```yaml
-commercialUse: free | paid
-highRes: free | paid
+access:
+  type: display-only | request | free
 ```
 
-- `commercialUse: free`: استفادهٔ شخصی و تجاری طبق مجوز سایت رایگان است.
-- `commercialUse: paid`: استفادهٔ شخصی رایگان است؛ استفادهٔ تجاری مجوز پولی می‌خواهد.
-- `highRes: free`: نسخهٔ اصلی/باکیفیت می‌تواند رایگان ارائه شود.
-- `highRes: paid`: فایل باکیفیت نباید در Repository یا Build عمومی باشد و بعداً از مسیر درخواست/خرید ارائه می‌شود.
+- `display-only`: فقط نمایش Preview.
+- `request`: دکمهٔ دانلود، شرط پولی ثبت‌شده در `license` را نشان می‌دهد و تحویل Original با ایمیل هماهنگ می‌شود.
+- `free`: دانلود مستقیم از فایلی داخل `public/downloads/`.
+
+برای `request`، دو مقدار `license.highResolution` و `license.commercialUse` می‌توانند `free` یا `paid` باشند. اگر استفادهٔ تجاری پولی باشد همان شرط در Popup اولویت دارد؛ در غیر این صورت شرط کیفیت بالا نمایش داده می‌شود.
+
+هیچ قیمت، شماره کارت، لینک پرداخت یا Telegram در رابط عمومی نمایش داده نمی‌شود. ایمیل عمومی از `siteConfig.contactEmail` خوانده و همراه شرایط مجوز داخل پنجرهٔ دریافت نمایش داده می‌شود. جزئیات کامل و نمونهٔ Frontmatter در [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) آمده است.
 
 ### Originals must stay outside this repository
 

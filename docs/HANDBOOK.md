@@ -20,15 +20,13 @@ content/
 ├── pages/{fa,en}/             # صفحه‌هایی مانند About
 ├── writing/{fa,en}/           # نوشته‌ها
 ├── projects/{fa,en}/          # پروژه‌ها
-└── photography/               # کالکشن‌های مشترک فارسی و انگلیسی
-    └── <collection-slug>/
+└── photography/               # دسته‌های مشترک فارسی و انگلیسی
+    └── <category-slug>/
         ├── index.md
-        ├── icon.png
-        ├── images/
-        └── prompts/           # اختیاری؛ پرامپت یا یادداشت تولید تصویر
+        └── images/
 ```
 
-نوشته‌ها، پروژه‌ها و صفحه‌های ثابت برای فارسی و انگلیسی فایل جدا دارند. عکاسی تک‌منبعی است: هر کالکشن فقط یک `index.md` دارد و همان عکس‌ها در هر دو نسخهٔ سایت نمایش داده می‌شوند.
+نوشته‌ها، پروژه‌ها و صفحه‌های ثابت برای فارسی و انگلیسی فایل جدا دارند. عکاسی تک‌منبعی است: هر دسته فقط یک `index.md` دارد و همان عکس‌ها در هر دو نسخهٔ سایت نمایش داده می‌شوند. این دسته‌ها فقط برای مدیریت و فیلتر هستند؛ صفحهٔ عمومی عکاسی همهٔ عکس‌ها را در یک Grid نشان می‌دهد.
 
 ## ساخت نوشته
 
@@ -107,21 +105,19 @@ active | experimental | maintained | archived
 - برای Cover از ساختار پوشه‌ای `my-project/index.md` استفاده کن و تصویر را کنار آن بگذار.
 - برای نسخهٔ انگلیسی فایل جدا در `projects/en/` بساز و `translationKey` مشترک بده.
 
-## ساخت کالکشن عکس
+## ساخت دستهٔ عکس
 
 نام پوشه همیشه Slug انگلیسی با حروف کوچک و خط تیره است؛ عنوان نمایشی فارسی و انگلیسی داخل Frontmatter قرار می‌گیرد:
 
 ```text
 content/photography/places-to-visit/
 ├── index.md
-├── icon.png
 ├── images/
 │   ├── 001.jpg
 │   └── 002.webp
-└── prompts/
 ```
 
-فایل `content/_templates/photography-collection.md` را به `index.md` کپی کن. یک کالکشن Draft می‌تواند فعلاً `photos: []` داشته باشد؛ کالکشن منتشرشده باید دست‌کم یک عکس داشته باشد.
+فایل `content/_templates/photography-category.md` را به `index.md` کپی کن. یک دستهٔ Draft می‌تواند فعلاً `photos: []` داشته باشد؛ دستهٔ منتشرشده باید دست‌کم یک عکس داشته باشد.
 
 نمونهٔ مینیمال:
 
@@ -134,17 +130,15 @@ description:
   fa: "مکان‌هایی که ارزش دیدن دارند"
   en: "Places worth seeing"
 publishedAt: 2026-08-27
-icon: ./icon.png
-iconScale: 0.8
 draft: true
 tags: []
 photos: []
 ---
 ```
 
-## افزودن عکس به کالکشن موجود
+## افزودن عکس به دستهٔ موجود
 
-1. نسخهٔ Web-ready را داخل `images/` همان کالکشن بگذار؛ Original یا RAW را بیرون Repository نگه دار.
+1. نسخهٔ Web-ready را داخل `images/` همان دسته بگذار؛ Original یا RAW را بیرون Repository نگه دار.
 2. یک آیتم به انتهای `photos` در `index.md` اضافه کن.
 3. ابتدا با `draft: true` بررسی کن و سپس منتشر کن.
 
@@ -153,7 +147,10 @@ photos: []
 ```yaml
 photos:
   - src: ./images/001.jpg
+    slug: stable-photo-slug
     process: photograph
+    access:
+      type: display-only
 ```
 
 همهٔ موارد زیر واقعاً اختیاری‌اند و اگر ننویسی روی سایت نمایش داده نمی‌شوند:
@@ -171,11 +168,15 @@ photos:
   caption:
     fa: "یادداشت کوتاه"
     en: "A short note"
-  commercialUse: paid
-  highRes: paid
+  tags: [yazd, architecture]
+  access:
+    type: request
+    license:
+      highResolution: paid
+      commercialUse: free
 ```
 
-اگر `slug` ننویسی، مسیر عکس به‌ترتیب `01`، `02` و ... ساخته می‌شود. اگر قرار است ترتیب عکس‌ها در آینده زیاد تغییر کند، Slug ثابت بنویس تا URL عوض نشود.
+`slug` عکس اجباری است و باید فقط از حروف کوچک انگلیسی، عدد و خط تیره ساخته شود. Slug را در کل بخش عکاسی یکتا و ثابت نگه دار؛ آدرس مستقیم عکس از همین مقدار ساخته می‌شود.
 
 ### منشأ عکس و هوش مصنوعی
 
@@ -186,7 +187,7 @@ ai-derived   بازتولید، کارتونی‌سازی یا تغییر محس
 ai-generated تصویر ساخته‌شده از ابتدا با هوش مصنوعی
 ```
 
-موضوع، کالکشن را تعیین می‌کند و `process` منشأ را. مثلاً عکس یک بنای واقعی که با AI خوش‌رنگ یا کارتونی شده، تا وقتی مکان موضوع اصلی و قابل‌شناسایی است در «اماکن دیدنی» می‌ماند و `process: ai-assisted` یا `ai-derived` می‌گیرد. تصویر کاملاً تخیلی یا مولد در «آثار مولد» قرار می‌گیرد.
+موضوع، دسته را تعیین می‌کند و `process` منشأ را. مثلاً عکس یک بنای واقعی که با AI خوش‌رنگ یا کارتونی شده، تا وقتی مکان موضوع اصلی و قابل‌شناسایی است در «اماکن دیدنی» می‌ماند و `process: ai-assisted` یا `ai-derived` می‌گیرد. تصویر کاملاً تخیلی یا مولد در «آثار مولد» قرار می‌گیرد.
 
 ### ابعاد و نسبت تصویر
 
@@ -199,14 +200,15 @@ ai-generated تصویر ساخته‌شده از ابتدا با هوش مصنو
 ### ساختار مسیرهای عکاسی
 
 ```text
-/{locale}/photography/                         فهرست کالکشن‌ها
-/{locale}/photography/<collection>/            Grid عکس‌های کالکشن
-/{locale}/photography/<collection>/<photo>/    صفحهٔ نهایی عکس
+/{locale}/photography/                 همهٔ عکس‌ها + فیلتر دسته
+/{locale}/photography/<photo-slug>/    صفحهٔ نهایی عکس
 ```
 
-Breadcrumb در دو صفحهٔ آخر نشان می‌دهد کاربر کجاست. اگر صفحه‌ای رندر نشد، ابتدا وجود فایل `src`، درست‌بودن تورفتگی YAML و `draft` را بررسی کن؛ سپس سرور Dev را یک بار متوقف و دوباره با `pnpm dev` اجرا کن و `pnpm check` بزن.
+کلیک روی عکس مستقیماً صفحهٔ نهایی را باز می‌کند. کلیک روی نام دسته همان Grid را فیلتر می‌کند و مرحلهٔ میانی وجود ندارد. اگر صفحه‌ای رندر نشد، ابتدا یکتا بودن `slug`، وجود فایل `src`، درست‌بودن تورفتگی YAML و `draft` را بررسی کن؛ سپس سرور Dev را یک بار متوقف و دوباره با `pnpm dev` اجرا کن و `pnpm check` بزن.
 
-## پرامپت ثابت ساخت Preview کالکشن
+## پرامپت آرشیوی ساخت Preview دسته
+
+آیکن دسته دیگر در رابط عمومی سایت استفاده نمی‌شود؛ متن زیر برای حفظ زبان بصری و استفادهٔ احتمالی آینده نگه داشته شده است.
 
 آیکن «اماکن دیدنی» را مرجع اصلی و آیکن «طبیعت» را مرجع دوم به مدل تصویر بده. فقط `{{SUBJECT}}` را عوض کن؛ مثلاً `a car`.
 
@@ -290,25 +292,26 @@ Constraints:
 
 ### نقشهٔ دقیق محل تغییرها
 
-| چیزی که می‌خواهی تغییر بدهی                             | فایل اصلی                                    |
-| ------------------------------------------------------- | -------------------------------------------- |
-| متن صفحهٔ About فارسی                                   | `content/pages/fa/about.md`                  |
-| متن صفحهٔ About انگلیسی                                 | `content/pages/en/about.md`                  |
-| متن معرفی زیر «سلام!» و `Hello!`                        | `src/i18n.ts`، مقدار `intro` در زبان مربوطه  |
-| خود عنوان «سلام!» و `Hello!`                            | `src/pages/[locale]/index.astro`             |
-| ترتیب بخش‌های صفحهٔ خانه                                | `src/pages/[locale]/index.astro`             |
-| عنوان‌های ثابت مثل «آخرین نوشته‌ها» و «پروژه‌های منتخب» | `src/i18n.ts`                                |
-| نام و لینک‌های منوی بالای سایت                          | `src/site.config.ts`، بخش `menuLinks`        |
-| نام سایت، توضیح متا، دامنه و شبکه‌های اجتماعی           | `src/site.config.ts`، بخش `siteConfig`       |
-| متن و لینک‌های Footer                                   | `src/components/layout/Footer.astro`         |
-| ساختار Header، لوگو، زبان و منو                         | `src/components/layout/Header.astro`         |
-| متادیتای عمومی، فونت، Favicon و Open Graph              | `src/components/BaseHead.astro`              |
-| چیدمان مشترک همهٔ صفحات                                 | `src/layouts/Base.astro`                     |
-| صفحهٔ فهرست نوشته‌ها                                    | `src/pages/[locale]/writing/index.astro`     |
-| صفحهٔ فهرست پروژه‌ها                                    | `src/pages/[locale]/projects/index.astro`    |
-| صفحهٔ فهرست کالکشن‌های عکس                              | `src/pages/[locale]/photography/index.astro` |
-| کارت نوشته، پروژه یا عکس                                | فایل متناظر در `src/components/content/`     |
-| رنگ‌ها، تایپوگرافی و حالت تاریک                         | `src/styles/global.css`                      |
+| چیزی که می‌خواهی تغییر بدهی                             | فایل اصلی                                      |
+| ------------------------------------------------------- | ---------------------------------------------- |
+| متن صفحهٔ About فارسی                                   | `content/pages/fa/about.md`                    |
+| متن صفحهٔ About انگلیسی                                 | `content/pages/en/about.md`                    |
+| متن معرفی زیر «سلام!» و `Hello!`                        | `src/i18n.ts`، مقدار `intro` در زبان مربوطه    |
+| خود عنوان «سلام!» و `Hello!`                            | `src/pages/[locale]/index.astro`               |
+| ترتیب بخش‌های صفحهٔ خانه                                | `src/pages/[locale]/index.astro`               |
+| عنوان‌های ثابت مثل «آخرین نوشته‌ها» و «پروژه‌های منتخب» | `src/i18n.ts`                                  |
+| نام و لینک‌های منوی بالای سایت                          | `src/site.config.ts`، بخش `menuLinks`          |
+| نام سایت، توضیح متا، دامنه و شبکه‌های اجتماعی           | `src/site.config.ts`، بخش `siteConfig`         |
+| متن و لینک‌های Footer                                   | `src/components/layout/Footer.astro`           |
+| ساختار Header، لوگو، زبان و منو                         | `src/components/layout/Header.astro`           |
+| متادیتای عمومی، فونت، Favicon و Open Graph              | `src/components/BaseHead.astro`                |
+| چیدمان مشترک همهٔ صفحات                                 | `src/layouts/Base.astro`                       |
+| صفحهٔ فهرست نوشته‌ها                                    | `src/pages/[locale]/writing/index.astro`       |
+| صفحهٔ فهرست پروژه‌ها                                    | `src/pages/[locale]/projects/index.astro`      |
+| Grid همهٔ عکس‌ها و فیلتر دسته                           | `src/pages/[locale]/photography/index.astro`   |
+| صفحهٔ مستقیم هر عکس                                     | `src/pages/[locale]/photography/[photo].astro` |
+| کارت نوشته، پروژه یا عکس                                | فایل متناظر در `src/components/content/`       |
+| رنگ‌ها، تایپوگرافی و حالت تاریک                         | `src/styles/global.css`                        |
 
 ### ویرایش About
 
@@ -430,13 +433,15 @@ git push origin main
 
 در `git status` نباید Original، RAW، فایل `.env` یا کلید دسترسی دیده شود. پوشهٔ `dist/` خروجی Build است و Commit نمی‌شود.
 
-## پرداخت و دانلود عکس
+## دریافت و دانلود عکس
 
-ساختار متادیتای اختیاری در `docs/PHOTOGRAPHY.md` ثبت شده است. تصمیم فعلی این است که قیمت روی کارت یا زیر عکس نمایش داده نشود؛ لینک ایرانی فقط در فارسی و NOWPayments فقط در انگلیسی ظاهر می‌شود. تا وقتی روش تحویل فایل شفاف و مطمئن نشده، پرداخت یا دانلود محافظت‌شده را گسترش نده.
+سه حالت `display-only`، `free` و `request` در `docs/PHOTOGRAPHY.md` ثبت شده‌اند. دکمهٔ عکس رایگان مستقیماً فایل `public/downloads/` را دانلود می‌کند و Popup ندارد. برای عکس `request`، دو مقدار `license.highResolution` و `license.commercialUse` وضعیت `free` یا `paid` می‌گیرند. اگر تجاری پولی باشد همان جمله اولویت دارد؛ در غیر این صورت فقط پولی‌بودن کیفیت بالا نمایش داده می‌شود.
+
+ایمیل عمومی پنجرهٔ دریافت از `siteConfig.contactEmail` داخل `src/site.config.ts` خوانده می‌شود. دو متن کوتاه شرط نیز در `downloadRestrictions` داخل `src/i18n.ts` قرار دارند. اطلاعات کارت‌به‌کارت یا NOWPayments فقط در پاسخ خصوصی فرستاده می‌شود و Original، RAW و نسخهٔ پولی همیشه بیرون Repository می‌مانند.
 
 ## فایل‌های مرجع تکمیلی
 
 - `docs/CONTENT.md`: نمونه‌های Frontmatter
-- `docs/PHOTOGRAPHY.md`: آماده‌سازی، مجوز، پرداخت و تحویل عکس
-- `docs/COLLECTION-ICONS.md`: نسخهٔ جداگانهٔ پرامپت آیکن کالکشن
+- `docs/PHOTOGRAPHY.md`: آماده‌سازی، دسته‌بندی، دانلود و تحویل عکس
+- `docs/COLLECTION-ICONS.md`: آرشیو پرامپت آیکن‌های دسته
 - `content/_templates/`: قالب‌های قابل استفاده در Obsidian

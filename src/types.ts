@@ -10,6 +10,7 @@ export interface SiteConfig {
 	date: { options: Intl.DateTimeFormatOptions };
 	defaultLocale: Locale;
 	languages: Record<Locale, LocalizedSiteCopy>;
+	contactEmail?: string;
 	showLogo: boolean;
 	socials: { github: string; linkedin: string };
 	url: string;

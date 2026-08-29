@@ -6,8 +6,39 @@ export const contentSlug = (id: string, locale: Locale) =>
 
 export const photographySlug = (id: string) => id.replace(/\/index$/, "");
 
-export const photoSlug = (slug: string | undefined, index: number) =>
-	slug ?? String(index + 1).padStart(2, "0");
+type PhotographyEntry = CollectionEntry<"photography">;
+export type Photograph = PhotographyEntry["data"]["photos"][number];
+
+export interface PhotographyItem {
+	categorySlug: string;
+	entry: PhotographyEntry;
+	photo: Photograph;
+	photoIndex: number;
+	slug: string;
+}
+
+export function getPhotographyItems(entries: PhotographyEntry[]): PhotographyItem[] {
+	const items = entries.flatMap((entry) => {
+		const categorySlug = photographySlug(entry.id);
+		return entry.data.photos.map((photo, photoIndex) => ({
+			categorySlug,
+			entry,
+			photo,
+			photoIndex,
+			slug: photo.slug,
+		}));
+	});
+
+	const seen = new Set<string>();
+	for (const item of items) {
+		if (seen.has(item.slug)) {
+			throw new Error(`Duplicate photography slug: ${item.slug}`);
+		}
+		seen.add(item.slug);
+	}
+
+	return items;
+}
 
 export async function getWriting(locale: Locale) {
 	return (

@@ -1,6 +1,6 @@
 ---
-import PhotographyCollectionCard from "@/components/content/PhotographyCollectionCard.astro";
-import { getPhotography, photographySlug } from "@/data/content";
+import PhotographyCard from "@/components/content/PhotographyCard.astro";
+import { getPhotography, getPhotographyItems, photographySlug } from "@/data/content";
 import { isLocale, locales, otherLocale, ui } from "@/i18n";
 import Base from "@/layouts/Base.astro";
 export function getStaticPaths() {
@@ -10,6 +10,10 @@ const value = Astro.params.locale;
 if (!isLocale(value)) return Astro.redirect("/fa/photography/");
 const locale = value;
 const entries = await getPhotography();
+const photographs = getPhotographyItems(entries);
+const categories = entries
+	.filter((entry) => entry.data.photos.length > 0)
+	.map((entry) => ({ slug: photographySlug(entry.id), title: entry.data.title[locale] }));
 ---
 
 <Base
@@ -23,24 +27,84 @@ const entries = await getPhotography();
 >
 	<header class="mb-10">
 		<h1 class="title">{ui[locale].photography}</h1>
-		<p class="text-muted mt-3">{ui[locale].collectionHint}</p>
 	</header>
 	{
-		entries.length > 0 ? (
-			<section
-				aria-label={ui[locale].collections}
-				class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6"
-			>
-				{entries.map((entry) => (
-					<PhotographyCollectionCard
-						entry={entry}
-						locale={locale}
-						slug={photographySlug(entry.id)}
-					/>
-				))}
-			</section>
+		photographs.length > 0 ? (
+			<>
+				<nav aria-label={ui[locale].filterPhotos} class="mb-8 flex flex-wrap gap-2">
+					<a class="photo-filter" data-photo-filter="all" href={`/${locale}/photography/`}>
+						{ui[locale].allPhotos}
+					</a>
+					{categories.map((category) => (
+						<a
+							class="photo-filter"
+							data-photo-filter={category.slug}
+							href={`/${locale}/photography/?category=${encodeURIComponent(category.slug)}`}
+						>
+							{category.title}
+						</a>
+					))}
+				</nav>
+				<section class="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10">
+					{photographs.map((item) => (
+						<PhotographyCard
+							categoryTitle={item.entry.data.title[locale]}
+							categorySlug={item.categorySlug}
+							photo={item.photo}
+							photoIndex={item.photoIndex}
+							locale={locale}
+							photoSlug={item.slug}
+						/>
+					))}
+				</section>
+			</>
 		) : (
 			<p class="text-muted">{ui[locale].noItems}</p>
 		)
 	}
 </Base>
+
+<style>
+	.photo-filter {
+		border: 1px solid color-mix(in oklch, var(--color-muted) 40%, transparent);
+		border-radius: 999px;
+		color: var(--color-muted);
+		font-size: 0.75rem;
+		padding: 0.3rem 0.75rem;
+		transition:
+			border-color 150ms ease,
+			color 150ms ease,
+			background-color 150ms ease;
+	}
+
+	.photo-filter:hover {
+		border-color: var(--color-global-text);
+		color: var(--color-global-text);
+	}
+
+	.photo-filter[aria-current="page"] {
+		background: var(--color-global-text);
+		border-color: var(--color-global-text);
+		color: var(--color-global-bg);
+	}
+</style>
+
+<script>
+	const filters = document.querySelectorAll<HTMLAnchorElement>("[data-photo-filter]");
+	const cards = document.querySelectorAll<HTMLElement>("[data-photo-category]");
+	const requestedCategory = new URLSearchParams(window.location.search).get("category");
+	const knownCategories = new Set(
+		Array.from(cards, (card) => card.dataset.photoCategory).filter(Boolean),
+	);
+	const activeCategory =
+		requestedCategory && knownCategories.has(requestedCategory) ? requestedCategory : "all";
+
+	for (const card of cards) {
+		card.hidden = activeCategory !== "all" && card.dataset.photoCategory !== activeCategory;
+	}
+
+	for (const filter of filters) {
+		if (filter.dataset.photoFilter === activeCategory) filter.setAttribute("aria-current", "page");
+		else filter.removeAttribute("aria-current");
+	}
+</script>

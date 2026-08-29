@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import PhotographyAccess from "@/components/content/PhotographyAccess.astro";
+import PhotographyBreadcrumbs from "@/components/content/PhotographyBreadcrumbs.astro";
+import { getPhotography, getPhotographyItems, type PhotographyItem } from "@/data/content";
+import { locales, otherLocale, ui } from "@/i18n";
+import Base from "@/layouts/Base.astro";
+import type { Locale } from "@/types";
+
+export async function getStaticPaths() {
+	const items = getPhotographyItems(await getPhotography());
+	return items.flatMap((item, itemIndex) =>
+		locales.map((locale) => ({
+			params: { locale, photo: item.slug },
+			props: {
+				item,
+				itemIndex,
+				locale,
+				nextSlug: items[itemIndex + 1]?.slug,
+				previousSlug: items[itemIndex - 1]?.slug,
+				total: items.length,
+			},
+		})),
+	);
+}
+
+const { item, itemIndex, locale, nextSlug, previousSlug, total } = Astro.props as {
+	item: PhotographyItem;
+	itemIndex: number;
+	locale: Locale;
+	nextSlug?: string;
+	previousSlug?: string;
+	total: number;
+};
+const { entry, photo, photoIndex, slug } = item;
+const categoryTitle = entry.data.title[locale];
+const title = photo.title?.[locale];
+const displayTitle = title ?? `${categoryTitle} ${photoIndex + 1}`;
+const alt = photo.alt?.[locale] ?? displayTitle;
+const caption = photo.caption?.[locale];
+const positionLabel = ui[locale].photoPosition(itemIndex + 1, total);
+const categoryUrl = `/${locale}/photography/?category=${encodeURIComponent(item.categorySlug)}`;
+const detailWidths = [...new Set([640, 960, 1440, Math.min(photo.src.width, 1440)])]
+	.filter((width) => width <= photo.src.width)
+	.sort((a, b) => a - b);
+---
+
+<Base
+	meta={{
+		title: title ?? `${categoryTitle} · ${itemIndex + 1}`,
+		description: caption ?? entry.data.description[locale],
+		locale,
+		alternateHref: `/${otherLocale(locale)}/photography/${slug}/`,
+		articleDate: entry.data.publishedAt.toISOString(),
+		ogImage: photo.src.src,
+	}}
+>
+	<article>
+		<header class="mb-6">
+			<PhotographyBreadcrumbs
+				locale={locale}
+				items={[
+					{ label: ui[locale].photography, href: `/${locale}/photography/` },
+					{ label: categoryTitle, href: categoryUrl },
+					{ label: title ?? positionLabel },
+				]}
+			/>
+			<p class="text-muted text-xs font-medium tracking-wide">{positionLabel}</p>
+			{
+				title ? (
+					<h1 class="text-accent-2 mt-5 text-3xl font-semibold sm:text-4xl">{title}</h1>
+				) : (
+					<h1 class="sr-only">{displayTitle}</h1>
+				)
+			}
+		</header>
+		<figure>
+			<div class="bg-muted/5 flex justify-center overflow-hidden rounded-sm">
+				<Image
+					src={photo.src}
+					alt={alt}
+					widths={detailWidths}
+					sizes="(max-width: 768px) 100vw, 768px"
+					class="h-auto max-h-[82vh] w-auto max-w-full object-contain"
+				/>
+			</div>
+			<figcaption class="text-muted mt-4 text-sm">
+				{caption && <p>{caption}</p>}
+				<dl class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs">
+					<div>
+						<dt class="inline">{ui[locale].category}:</dt>
+						<dd class="inline"><a class="cactus-link" href={categoryUrl}>{categoryTitle}</a></dd>
+					</div>
+					<div>
+						<dt class="inline">{ui[locale].imageOrigin}:</dt>
+						<dd class="inline">{ui[locale].imageProcesses[photo.process]}</dd>
+					</div>
+				</dl>
+			</figcaption>
+		</figure>
+		<PhotographyAccess access={photo.access} locale={locale} photographTitle={displayTitle} />
+		{
+			(previousSlug || nextSlug) && (
+				<nav
+					aria-label={locale === "fa" ? "پیمایش میان عکس‌ها" : "Photograph navigation"}
+					class="border-muted/30 mt-8 grid grid-cols-2 border-t pt-5 text-sm"
+				>
+					{previousSlug && (
+						<a
+							class="cactus-link justify-self-start"
+							href={`/${locale}/photography/${previousSlug}/`}
+						>
+							{ui[locale].previousPhoto}
+						</a>
+					)}
+					{nextSlug && (
+						<a
+							class="cactus-link col-start-2 justify-self-end"
+							href={`/${locale}/photography/${nextSlug}/`}
+						>
+							{ui[locale].nextPhoto}
+						</a>
+					)}
+				</nav>
+			)
+		}
+	</article>
+</Base>

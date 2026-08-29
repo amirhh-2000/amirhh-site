@@ -6,7 +6,6 @@ description:
   fa: مکان‌هایی که ارزش دیدن و به خاطر سپردن دارند.
   en: Places worth seeing and remembering.
 publishedAt: 2026-08-27
-icon: ./icon.png
 draft: true
 tags: [places, travel]
 photos: []

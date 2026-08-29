@@ -1,0 +1,122 @@
+---
+import type { Photograph } from "@/data/content";
+import { ui } from "@/i18n";
+import { siteConfig } from "@/site.config";
+import type { Locale } from "@/types";
+
+const { access, locale, photographTitle } = Astro.props as {
+	access: Photograph["access"];
+	locale: Locale;
+	photographTitle: string;
+};
+
+const requestHref =
+	access.type === "request" && siteConfig.contactEmail
+		? `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(ui[locale].requestPhotographSubject(photographTitle))}&body=${encodeURIComponent(ui[locale].requestPhotographBody(photographTitle))}`
+		: undefined;
+const freeFile = access.type === "free" ? access.file : undefined;
+const restriction =
+	access.license.commercialUse === "paid"
+		? ui[locale].downloadRestrictions.commercialUse
+		: access.license.highResolution === "paid"
+			? ui[locale].downloadRestrictions.highResolution
+			: undefined;
+const requiresAgreement = access.type === "request" && restriction;
+---
+
+{
+	(freeFile || requiresAgreement) && (
+		<aside class="border-muted/40 mt-6 border-s ps-4">
+			{freeFile ? (
+				<a
+					class="border-muted/50 hover:border-global-text inline-flex rounded-sm border px-4 py-2 text-sm font-medium transition"
+					download
+					href={freeFile}
+				>
+					{ui[locale].downloadPhotograph}
+				</a>
+			) : (
+				<button
+					class="border-muted/50 hover:border-global-text inline-flex cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition"
+					data-download-terms-open
+					type="button"
+				>
+					{ui[locale].downloadPhotograph}
+				</button>
+			)}
+			{access.type === "free" && (access.format || access.dimensions) && (
+				<dl class="text-muted mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs">
+					{access.format && (
+						<div>
+							<dt class="inline">{ui[locale].fileFormat}: </dt>
+							<dd class="inline">{access.format}</dd>
+						</div>
+					)}
+					{access.dimensions && (
+						<div>
+							<dt class="inline">{ui[locale].imageDimensions}: </dt>
+							<dd class="inline">{access.dimensions}</dd>
+						</div>
+					)}
+				</dl>
+			)}
+			{requiresAgreement && (
+				<dialog
+					aria-labelledby="download-terms-title"
+					class="border-muted/40 bg-global-bg text-global-text m-auto w-[min(32rem,calc(100%-2rem))] rounded-sm border p-0 shadow-xl"
+					data-download-terms
+				>
+					<div class="p-6 sm:p-7">
+						<h2 class="text-accent-2 text-xl font-semibold" id="download-terms-title">
+							{ui[locale].downloadTermsTitle}
+						</h2>
+						<p class="text-muted mt-3 text-sm">{restriction}</p>
+						{requestHref && siteConfig.contactEmail && (
+							<p class="text-muted mt-5 text-sm">
+								{ui[locale].contactEmail}:{" "}
+								<a class="cactus-link" dir="ltr" href={requestHref}>
+									{siteConfig.contactEmail}
+								</a>
+							</p>
+						)}
+						<div class="mt-7 flex flex-wrap gap-3">
+							{requestHref && (
+								<a
+									class="bg-global-text text-global-bg inline-flex rounded-sm px-4 py-2 text-sm font-medium"
+									href={requestHref}
+								>
+									{ui[locale].requestPhotograph}
+								</a>
+							)}
+							<form method="dialog">
+								<button
+									class="border-muted/50 hover:border-global-text cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition"
+									type="submit"
+								>
+									{ui[locale].close}
+								</button>
+							</form>
+						</div>
+					</div>
+				</dialog>
+			)}
+		</aside>
+	)
+}
+
+<style>
+	dialog::backdrop {
+		background: rgb(0 0 0 / 0.52);
+		backdrop-filter: blur(2px);
+	}
+</style>
+
+<script>
+	const openButton = document.querySelector<HTMLButtonElement>("[data-download-terms-open]");
+	const dialog = document.querySelector<HTMLDialogElement>("[data-download-terms]");
+
+	openButton?.addEventListener("click", () => dialog?.showModal());
+	dialog?.addEventListener("click", (event) => {
+		if (event.target === dialog) dialog.close();
+	});
+</script>

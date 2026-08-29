@@ -1,31 +1,24 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import type { Photograph } from "@/data/content";
 import type { Locale } from "@/types";
 
-type PhotographyEntry = CollectionEntry<"photography">;
-type Photograph = PhotographyEntry["data"]["photos"][number];
-
-const { collectionTitle, photo, photoIndex, locale, collectionSlug, photoSlug } = Astro.props as {
-	collectionTitle: string;
+const { categoryTitle, categorySlug, photo, photoIndex, locale, photoSlug } = Astro.props as {
+	categoryTitle: string;
+	categorySlug: string;
 	photo: Photograph;
 	photoIndex: number;
 	locale: Locale;
-	collectionSlug: string;
 	photoSlug: string;
 };
 const title = photo.title?.[locale];
-const alt = photo.alt?.[locale] ?? title ?? `${collectionTitle} ${photoIndex + 1}`;
+const alt = photo.alt?.[locale] ?? title ?? `${categoryTitle} ${photoIndex + 1}`;
 const cardWidths = [320, 480, 720].filter((width) => width <= photo.src.width);
 if (cardWidths.length === 0) cardWidths.push(photo.src.width);
 ---
 
-<article class="min-w-0">
-	<a
-		class="group block"
-		href={`/${locale}/photography/${collectionSlug}/${photoSlug}/`}
-		aria-label={title ?? alt}
-	>
+<article class="min-w-0" data-photo-category={categorySlug}>
+	<a class="group block" href={`/${locale}/photography/${photoSlug}/`} aria-label={title ?? alt}>
 		<div class="bg-muted/10 overflow-hidden rounded-sm">
 			<Image
 				src={photo.src}
@@ -36,6 +29,13 @@ if (cardWidths.length === 0) cardWidths.push(photo.src.width);
 				loading="lazy"
 			/>
 		</div>
-		{title && <h2 class="text-global-text mt-2 truncate text-xs font-medium">{title}</h2>}
 	</a>
+	<div class="mt-2 text-xs">
+		<a
+			class="text-muted hover:text-global-text inline-block underline-offset-4 hover:underline"
+			href={`/${locale}/photography/?category=${encodeURIComponent(categorySlug)}`}
+		>
+			{categoryTitle}
+		</a>
+	</div>
 </article>
