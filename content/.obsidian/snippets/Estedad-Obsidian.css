@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "EstedadLocal";
+  src:
+    local("Estedad"),
+    local("Estedad Regular"),
+    url("./fonts/Estedad-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  --font-text: "EstedadLocal", "Estedad", sans-serif;
+  --font-editor: "EstedadLocal", "Estedad", sans-serif;
+}
+
+body.is-mobile {
+  --font-text: "EstedadLocal", "Estedad", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-interface: "EstedadLocal", "Estedad", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@media print {
+  body,
+  .markdown-rendered,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  span {
+    font-family: "EstedadLocal", "Estedad", "Tahoma", sans-serif !important;
+    direction: rtl;
+    text-align: justify;
+  }
+}

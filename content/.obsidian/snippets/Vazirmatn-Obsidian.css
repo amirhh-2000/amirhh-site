@@ -1,0 +1,25 @@
+@media print {
+    body, .markdown-rendered, p, h1, h2, h3, h4, h5, h6, li, span {
+        font-family: 'Vazirmatn', 'Estedad', 'Tahoma' !important; 
+        direction: rtl;
+        text-align: justify;
+    }
+}
+
+body {
+    --font-text: 'Vazirmatn', sans-serif;
+    --font-editor: 'Vazirmatn', sans-serif;
+}
+
+@font-face {
+  font-family: "VazirmatnLocal";
+  src: url("./fonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body.is-mobile {
+  --font-text: "VazirmatnLocal", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-interface: "VazirmatnLocal", -apple-system, BlinkMacSystemFont, sans-serif;
+}
