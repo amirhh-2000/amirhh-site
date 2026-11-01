@@ -124,6 +124,8 @@ class PhotoModal extends Modal {
       let createdImage = null, createdDownload = null;
       try {
         const values = { category: category.value, draft: !publish.checked };
+        // Record the first publication time once; subsequent edits keep the original order.
+        if (publish.checked && !this.data.publishedAt) values.publishedAt = new Date().toISOString();
         for (const [key, input] of Object.entries({ title, titleEn, alt, altEn, caption, captionEn })) values[key] = input.value.trim() || undefined;
         values.process = process.value === 'photograph' ? undefined : process.value;
         let notePath, imagePath, chosen;
