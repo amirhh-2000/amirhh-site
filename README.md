@@ -2,7 +2,7 @@
 
 راهنمای نگهداری وب‌سایت شخصی دوزبانهٔ امیرحسین، ساخته‌شده با Astro Cactus. سایت کاملاً استاتیک است و نوشته‌ها، پروژه‌ها و عکس‌ها از Markdown و YAML Frontmatter خوانده می‌شوند.
 
-مرجع اصلی ساخت نوشته، پروژه، دسته و عکس در [`docs/HANDBOOK.md`](docs/HANDBOOK.md) است. نمونه‌های تخصصی‌تر در [`docs/CONTENT.md`](docs/CONTENT.md) و [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) نگهداری می‌شوند؛ [`docs/COLLECTION-ICONS.md`](docs/COLLECTION-ICONS.md) آرشیو زبان بصری آیکن‌های قدیمی است.
+مرجع اصلی ساخت نوشته، پروژه، دسته و عکس در [`docs/HANDBOOK.md`](docs/HANDBOOK.md) است. نمونه‌های تخصصی‌تر در [`docs/CONTENT.md`](docs/CONTENT.md) و [`docs/PHOTOGRAPHY.md`](docs/PHOTOGRAPHY.md) نگهداری می‌شوند.
 
 ## Development
 
@@ -93,13 +93,7 @@ active | experimental | maintained | archived
 
 ## Photography
 
-فقط نسخه‌های Web-ready را در Repository قرار بده:
-
-```text
-content/photography/<collection-slug>/
-```
-
-هر دسته فقط یک فایل متادیتا با نام `index.md` و یک نام پوشهٔ انگلیسی دارد، اما پوشهٔ `images/` آن می‌تواند هر تعداد عکس داشته باشد. برای افزودن عکس، فایل را داخل `images/` بگذار و یک آیتم با `slug` یکتا به آرایهٔ `photos` اضافه کن. صفحهٔ Photography همهٔ عکس‌ها را در یک Grid سه‌ستونه نشان می‌دهد؛ نام دسته روی کارت همان Grid را فیلتر می‌کند و کلیک روی عکس مستقیماً صفحهٔ مستقل آن را باز می‌کند.
+هر عکس یک یادداشت Markdown و یک تصویر کنار آن در `content/photography/` دارد. از قالب `content/_templates/photography.md` در Obsidian استفاده کن؛ نام یادداشت آدرس عکس را تعیین می‌کند. دسته‌ها در `content/photography-categories.json` تعریف می‌شوند. جزئیات در [راهنمای عکاسی](docs/PHOTOGRAPHY.md) آمده است.
 
 روش دسترسی هر عکس با `access.type` مشخص می‌شود:
 

@@ -32,8 +32,8 @@ const { item, itemIndex, locale, nextSlug, previousSlug, total } = Astro.props a
 	previousSlug?: string;
 	total: number;
 };
-const { entry, photo, photoIndex, slug } = item;
-const categoryTitle = entry.data.title[locale];
+const { photo, photoIndex, slug } = item;
+const categoryTitle = item.category.title[locale];
 const title = photo.title?.[locale];
 const displayTitle = title ?? `${categoryTitle} ${photoIndex + 1}`;
 const alt = photo.alt?.[locale] ?? displayTitle;
@@ -48,10 +48,10 @@ const detailWidths = [...new Set([640, 960, 1440, Math.min(photo.src.width, 1440
 <Base
 	meta={{
 		title: title ?? `${categoryTitle} · ${itemIndex + 1}`,
-		description: caption ?? entry.data.description[locale],
+		description: caption ?? item.category.description[locale],
 		locale,
 		alternateHref: `/${otherLocale(locale)}/photography/${slug}/`,
-		articleDate: entry.data.publishedAt.toISOString(),
+		articleDate: item.publishedAt?.toISOString(),
 		ogImage: photo.src.src,
 	}}
 >

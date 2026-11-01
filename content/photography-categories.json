@@ -1,0 +1,20 @@
+{
+	"nature": {
+		"title": { "fa": "طبیعت", "en": "Nature" },
+		"description": { "fa": "لحظات زیبای طبیعت", "en": "Beautiful moments of nature" }
+	},
+	"generative-works": {
+		"title": { "fa": "آثار مولد", "en": "Generative Works" },
+		"description": {
+			"fa": "تصویرهایی که با هوش مصنوعی و خیال شکل گرفته‌اند.",
+			"en": "Images shaped through generative tools and imagination."
+		}
+	},
+	"places-to-visit": {
+		"title": { "fa": "اماکن دیدنی", "en": "Places to Visit" },
+		"description": {
+			"fa": "مکان‌هایی که ارزش دیدن و به خاطر سپردن دارند.",
+			"en": "Places worth seeing and remembering."
+		}
+	}
+}

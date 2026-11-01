@@ -1,6 +1,6 @@
 ---
 import PhotographyCard from "@/components/content/PhotographyCard.astro";
-import { getPhotography, getPhotographyItems, photographySlug } from "@/data/content";
+import { getPhotography, getPhotographyItems } from "@/data/content";
 import { isLocale, locales, otherLocale, ui } from "@/i18n";
 import Base from "@/layouts/Base.astro";
 export function getStaticPaths() {
@@ -11,9 +11,14 @@ if (!isLocale(value)) return Astro.redirect("/fa/photography/");
 const locale = value;
 const entries = await getPhotography();
 const photographs = getPhotographyItems(entries);
-const categories = entries
-	.filter((entry) => entry.data.photos.length > 0)
-	.map((entry) => ({ slug: photographySlug(entry.id), title: entry.data.title[locale] }));
+const categories = [
+	...new Map(
+		photographs.map((item) => [
+			item.categorySlug,
+			{ slug: item.categorySlug, title: item.category.title[locale] },
+		]),
+	).values(),
+];
 ---
 
 <Base
@@ -48,7 +53,7 @@ const categories = entries
 				<section class="grid grid-cols-2 gap-x-3 gap-y-8 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-10">
 					{photographs.map((item) => (
 						<PhotographyCard
-							categoryTitle={item.entry.data.title[locale]}
+							categoryTitle={item.category.title[locale]}
 							categorySlug={item.categorySlug}
 							photo={item.photo}
 							photoIndex={item.photoIndex}

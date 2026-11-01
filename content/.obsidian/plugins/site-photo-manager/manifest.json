@@ -1,0 +1,9 @@
+{
+  "id": "site-photo-manager",
+  "name": "Site Photo Manager",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Add and edit photographs for the personal site.",
+  "author": "Amir",
+  "isDesktopOnly": false
+}

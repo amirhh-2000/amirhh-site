@@ -102,69 +102,7 @@ draft: true
 
 ## عکاسی
 
-عکاسی برخلاف نوشته‌ها و پروژه‌ها تک‌منبعی است. هر دسته یک فایل دارد و همان عکس‌ها با متن دوزبانه در هر دو نسخهٔ سایت ساخته می‌شوند:
-
-```text
-content/photography/yazd-at-night/
-├── index.md
-└── images/
-    ├── old-alley.jpg
-    └── blue-door.jpg
-```
-
-نمونهٔ مینیمال:
-
-```yaml
----
-title:
-  fa: "یزد در شب"
-  en: "Yazd at Night"
-description:
-  fa: "مجموعه‌ای از خیابان‌ها و نور شب"
-  en: "Streets and light after dark"
-publishedAt: 2026-08-23
-draft: true
-tags: [yazd, night]
-photos:
-  - src: ./images/old-alley.jpg
-    slug: old-alley
-    process: photograph
-    access:
-      type: display-only
----
-```
-
-برای هر عکس `src` و `slug` لازم‌اند. `process` منشأ تصویر و `access` روش دسترسی را مشخص می‌کنند. مقدارهای معتبر منشأ `photograph`، `ai-assisted`، `ai-derived` و `ai-generated` هستند. عنوان، Alt، Caption و Tag فقط وقتی مقدار واقعی داری اضافه کن؛ نبودنشان هیچ Placeholder نمایشی نمی‌سازد.
-
-برای عکس دوم و بعدی، فایل را در همان پوشهٔ `images/` بگذار و آیتم تازه‌ای به انتهای `photos` اضافه کن. `slug` باید انگلیسی، ثابت و در کل عکاسی یکتا باشد. صفحهٔ «عکس‌ها» همهٔ تصاویر را در یک Grid نشان می‌دهد؛ دسته روی کارت نقش فیلتر دارد و کلیک روی خود عکس مستقیماً صفحهٔ آن را باز می‌کند.
-
-هر نسبت تصویری پذیرفته می‌شود. Grid برای نظم ظاهری Preview مربعی می‌سازد و صفحهٔ عکس نسبت واقعی را نگه می‌دارد. ۲۴۰۰ پیکسل فقط هدف پیشنهادی برای Preview باکیفیت است، نه الزام؛ سایت از فایل کوچک‌تر نسخهٔ بزرگ‌تر تولید نمی‌کند. دستهٔ Draft می‌تواند با `photos: []` برای آینده آماده بماند، اما دستهٔ منتشرشده باید حداقل یک عکس داشته باشد.
-
-برای عکس یک مکان، دسته را بر اساس موضوع انتخاب کن: پولیش سبک هوش مصنوعی `ai-assisted` و بازتولید یا کارتونی‌سازی مبتنی بر عکس خودت `ai-derived` است و تا وقتی مکان موضوع اصلی و قابل‌شناسایی است، هر دو داخل «اماکن دیدنی» می‌مانند. وقتی تصویر عمدتاً تخیلی شده یا از ابتدا بدون عکس مبنا ساخته شده است، آن را در «آثار مولد» قرار بده.
-
-حالت‌های دسترسی:
-
-```yaml
-# فقط نمایش
-access:
-  type: display-only
-
-# دریافت با هماهنگی ایمیلی
-access:
-  type: request
-  license:
-    highResolution: paid
-    commercialUse: free
-
-# دانلود رایگان
-access:
-  type: free
-  file: /downloads/old-alley.jpg
-  format: JPEG
-  dimensions: 2400 × 1600
-```
-
-فایل رایگان باید داخل `public/downloads/` باشد و بدون Popup دانلود می‌شود. برای `request`، هرکدام از `highResolution` و `commercialUse` می‌توانند `free` یا `paid` باشند. شرط تجاری پولی بر شرط کیفیت بالا اولویت دارد و فقط یک جمله در Popup نمایش داده می‌شود. ایمیل عمومی `siteConfig.contactEmail` نیز همان‌جا دیده می‌شود. راهنمای کامل در [`PHOTOGRAPHY.md`](PHOTOGRAPHY.md) قرار دارد.
+هر عکس یک یادداشت و یک فایل تصویر کنار هم در `content/photography/` دارد. قالب `_templates/photography.md` را استفاده کن؛ نام فایل یادداشت آدرس عکس است. مشخصات کامل، دسته‌ها و حالت‌های دسترسی در [راهنمای عکاسی](PHOTOGRAPHY.md) آمده‌اند.
 
 ## Draft و انتشار
 
